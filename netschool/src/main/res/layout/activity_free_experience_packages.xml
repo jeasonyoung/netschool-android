@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 套餐/班级Fragment -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <!-- 无数据时显示 -->
+    <include android:id="@+id/nodata_view" layout="@layout/activity_nodata"/>
+    
+    <!-- 数据列表 -->
+	<ExpandableListView android:id="@+id/list_packages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:childDivider="@drawable/topic_driver"
+            android:divider="@drawable/topic_driver"
+            android:dividerHeight="1.0dip"
+            android:fadingEdge="none"
+            android:gravity="center"
+            android:listSelector="@color/transparent" />
+	
+</LinearLayout>

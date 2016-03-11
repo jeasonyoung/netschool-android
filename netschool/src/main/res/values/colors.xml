@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 通用 -->
+    <color name="black">#ff000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#ffffffff</color>
+    <color name="red">#ffff0000</color>
+    <color name="green">#ff15a230</color>
+    <color name="blue">#ff2182bd</color>
+    <color name="grey">#ffc0c7c7</color>
+    <color name="darkgray">#ff363f46</color>
+    <!-- top banner background color -->
+    <!-- <color name="main_top_bgcolor">#ff242a3a</color> -->
+    <color name="main_top_bgcolor">#ff2bbdbc</color>
+    <!-- footer banner color -->
+    <!-- <color name="footer_bg_color">#ff363f46</color> -->
+    <color name="footer_bg_color">#ffdedede</color>
+    <color name="footer_bg_highlight_color">#ff2bbdbc</color>
+    
+    <!-- 引导页 -->
+    <color name="guide_bg_color">#fff6f6f6</color>
+    
+    <!-- 登录 -->
+    <color name="login_text_color">#ff767676</color>
+    
+    <!-- 主界面 -->
+    <color name="main_bg_color">#ffe0f0f8</color>
+    
+    <!-- 我的课程 -->
+    <color name="my_courses_bg_color">#fff6f6f6</color>
+    <color name="my_courses_item_group_bg_normal">#ffe0f0f8</color>
+    <color name="my_courses_item_group_bg_highlight">#ffe7e7e7</color>
+    <color name="my_courses_item_child_bg_highlight">#ffe7e7e7</color>
+    
+    <!-- 免费体验 考试分类背景色 -->
+    <color name="free_experience_category_item_bg_normal">#ffe0f0f8</color>
+    <color name="free_experience_category_item_bg_highlight">#ffe7e7e7</color>
+    <!-- 免费体验 考试背景色 -->
+    <color name="free_experience_exams_item_bg_normal">#ffe0f0f8</color>
+    <color name="free_experience_exams_item_bg_highlight">#ffe7e7e7</color>
+    <!-- 免费体验 课程资源 -->
+    <color name="free_experience_lesson_item_bg_normal">#ffffffff</color>
+    <color name="free_experience_lesson_item_bg_highlight">#ffe7e7e7</color>
+    <!-- 免费体验 套餐分组背景色  -->
+    <color name="free_experience_packages_group_bg_normal">#ffe0f0f8</color>
+    <color name="free_experience_packages_group_bg_highlight">#ffe7e7e7</color>
+    <!-- 免费体验 套餐分组子菜单背景色  -->
+    <color name="free_experience_packages_child_bg_normal">#ffffffff</color>
+    <color name="free_experience_packages_child_bg_highlight">#ffe7e7e7</color>
+    <!-- 我的课程－课程资源 -->
+    <color name="activity_my_course_lesson_item_bg_normal">#ffffffff</color>
+    <color name="activity_my_course_lesson_item_bg_highlight">#ffe7e7e7</color>
+    
+    <!-- 播放器 -->
+    <color name="play_video_volumn_control_bg">#ff033045</color>
+    <color name="play_video_video_control_bg">#ff033045</color>
+    
+    <!-- 下载 -->
+    <color name="download_bg_color">#ffe7e7e7</color> 
+    <color name="download_group_bg_highlight_color">#fff6f6f6</color>
+    <color name="download_group_downing_item_highlight">#ffe7e7e7</color>
+    
+    <!--  播放记录-->
+    <color name="play_record_bg_color">#fff6f6f6</color>
+    <color name="play_record_item_bg_normal">#ffffffff</color>
+    <color name="play_record_item_bg_highlight">#ffe7e7e7</color>
+    
+    <!-- 你问我答－数据项背景色 -->
+    <color name="answer_main_item_bg_normal">#ffffffff</color>
+    <color name="answer_main_item_bg_highlight">#ffe7e7e7</color>
+    <color name="answer_detail_bg_color">#fff6f6f6</color>
+    <color name="answer_detail_bottom_bg_color">#ffe7e7e7</color>
+    <!-- 建议 -->
+    <color name="suggest_bg_color">#fff6f6f6</color>
+    
+</resources>

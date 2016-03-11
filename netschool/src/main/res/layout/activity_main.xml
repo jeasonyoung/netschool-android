@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 主程序界面布局 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/main_bg_color"
+    android:gravity="fill_vertical">
+
+    <!-- top -->
+    <LinearLayout android:id="@+id/main_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_banner_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/main_top_bgcolor"
+        android:gravity="center"
+        android:orientation="vertical" >
+
+        <!-- logo图标 -->
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/main_top_logo_height"
+            android:layout_gravity="center"
+            android:src="@drawable/main_top_logo"
+            android:contentDescription="@string/main_top_logo_desc" />
+        
+    </LinearLayout>
+
+    <!-- GridView -->
+    <GridView android:id="@+id/main_gridview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/main_top"
+        android:layout_margin="@dimen/main_gridview_margin"
+        android:padding="@dimen/main_gridview_padding"
+        android:background="@color/transparent"
+        android:horizontalSpacing="@dimen/main_gridview_horizontal_spacing"
+        android:verticalSpacing="@dimen/main_gridview_vertical_spacing"
+        android:numColumns="@integer/main_gridview_num_columns"/>
+
+</RelativeLayout>

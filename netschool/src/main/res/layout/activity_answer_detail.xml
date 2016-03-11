@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 答疑明细activity -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/answer_detail_bg_color"
+    android:orientation="vertical" >
+    
+    <!-- top  -->
+    <include layout="@layout/activity_header" />
+    
+    <!-- 主题内容 -->
+    <TextView android:id="@+id/answer_topic_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/answer_detail_margin"
+        android:padding="@dimen/answer_detail_padding"
+        android:background="@drawable/edit_text_bg"
+        android:textColor="@color/black" 
+        android:textSize="@dimen/text_medium_size" />
+    
+    <!-- 明细数据 -->
+   <RelativeLayout 
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_marginTop="5dp">
+        
+       <!-- 明细数据列表 -->
+       <ListView android:id="@+id/list_answer_details" 
+			android:layout_width="match_parent" 
+			android:layout_height="match_parent"
+			android:layout_above="@+id/answer_detail_bottom" 
+			android:divider="@drawable/topic_driver" 
+			android:dividerHeight="1.0dp" 
+        	android:cacheColorHint="@color/transparent"
+        	android:fadingEdge="none" /> 
+       
+       <!-- 底部回复 -->
+       <RelativeLayout android:id="@+id/answer_detail_bottom"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:paddingTop="5dp"
+           android:paddingBottom="5dp"
+           android:layout_alignParentBottom="true"
+           android:background="@color/answer_detail_bottom_bg_color">
+           <!-- 回复输入框 -->
+           <EditText android:id="@+id/answer_detail_callback"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/btn_callback"
+                    android:layout_toStartOf="@+id/btn_callback"
+                    android:hint="@string/answer_detail_callback_hint"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small_size" />
+           <!-- 回复按钮 -->
+           <Button android:id="@+id/btn_callback"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5.0dip"
+                    android:text="@string/btn_answer_detail_callback_title" />
+           
+       </RelativeLayout>
+       
+   </RelativeLayout>
+</LinearLayout>

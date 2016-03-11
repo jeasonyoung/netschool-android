@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 登录Activity布局文件 -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:gravity="fill_vertical" 
+    android:orientation="vertical">
+
+    <!-- 登录logo -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_logo_top">
+    
+        <!-- logo图标 -->
+	    <ImageView 
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerInParent="true"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/login_logo"
+	        android:contentDescription="@string/login_logo_desc" />
+	    
+    </RelativeLayout>
+
+    <!--  用户/密码 -->
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/login_input_height"
+        android:layout_marginTop="@dimen/login_input_top"
+        android:layout_marginLeft="@dimen/login_input_left"
+        android:layout_marginStart="@dimen/login_input_left"
+        android:layout_marginRight="@dimen/login_input_right"
+        android:layout_marginEnd="@dimen/login_input_right"
+        android:paddingLeft="10dp"
+        android:paddingStart="10dp"
+        android:paddingRight="10dp"
+        android:paddingEnd="10dp"
+        android:background="@drawable/login_input_bg" 
+        android:orientation="vertical">
+
+        <!-- 账号  -->
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp">
+            
+            <!-- 账号文本 -->
+            <TextView android:id="@+id/tv_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" 
+                android:layout_centerVertical="true" 
+                android:gravity="center_vertical"
+                android:text="@string/login_username_title"
+           		android:textColor="@color/login_text_color"
+            	android:textSize="@dimen/text_medium_size"/>
+            
+            <!-- 账号输入框 -->
+            <AutoCompleteTextView android:id="@+id/txt_username"
+                style="@style/login_input"
+                android:layout_width="match_parent"
+            	android:layout_height="30dp"
+            	android:layout_toRightOf="@id/tv_username"
+            	android:layout_toEndOf="@id/tv_username"
+            	android:layout_centerVertical="true"
+            	android:ems="8"
+	            android:inputType="text"
+	            android:singleLine="true"
+	            android:textColor="@color/login_text_color"/>
+            
+        </RelativeLayout>
+        
+        <!-- 密码  -->
+        <RelativeLayout 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+            
+            <!-- 密码文本 -->
+            <TextView android:id="@+id/tv_password"
+                android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" 
+                android:layout_centerVertical="true" 
+            	android:gravity="center_vertical"
+            	android:text="@string/login_password_title"
+            	android:textColor="@color/login_text_color"
+            	android:textSize="@dimen/text_medium_size" />
+            
+            <!-- 密码输入框 -->
+            <EditText	android:id="@+id/txt_password"
+                style="@style/login_input"
+            	android:layout_width="match_parent"
+            	android:layout_height="30dp"
+            	android:layout_toRightOf="@id/tv_password"
+            	android:layout_toEndOf="@id/tv_password"
+            	android:layout_centerVertical="true"
+            	android:inputType="textPassword"
+            	android:singleLine="true" />
+            
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <!-- 记住密码 -->
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_rememeber_top"
+        android:layout_marginLeft="@dimen/login_input_left"
+        android:layout_marginStart="@dimen/login_input_left">
+        
+        <!-- 记住密码选中状态 -->
+        <CheckBox android:id="@+id/chk_rememeber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:button="@drawable/login_rememeber_checkbox"
+            android:checked="true"
+            android:text="@string/login_rememeber_title"
+            android:textColor="@color/black" />
+        
+    </LinearLayout>
+
+    <!--  登录按钮 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/login_buttons_top"
+        android:layout_marginLeft="@dimen/login_input_left"
+        android:layout_marginStart="@dimen/login_input_left"
+        android:layout_marginRight="@dimen/login_input_right"
+        android:layout_marginEnd="@dimen/login_input_right"
+        android:gravity="center_horizontal"
+        android:weightSum="2.0"
+        android:orientation="horizontal">
+        
+        <!-- 在线登录 -->
+        <ImageButton android:id="@+id/btn_login_online"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_buttons_height"
+            android:layout_weight="1.0"
+            android:background="@color/transparent"
+            android:src="@drawable/btn_login_online_img" 
+            android:scaleType="centerInside"
+            android:contentDescription="@string/btn_login_online_desc"/>
+
+        <!-- 离线登录 -->
+        <ImageButton android:id="@+id/btn_login_offline"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/login_buttons_height"
+            android:layout_marginLeft="10.0dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1.0"
+            android:background="@color/transparent"
+            android:src="@drawable/btn_login_offline_img"
+            android:scaleType="centerInside"
+            android:contentDescription="@string/btn_login_offline_desc" />
+        
+    </LinearLayout>
+    
+</LinearLayout>

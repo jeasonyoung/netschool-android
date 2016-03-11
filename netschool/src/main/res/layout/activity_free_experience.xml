@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 免费体验Activity布局 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="fill_vertical">
+    
+    <!-- top banner -->
+    <LinearLayout android:id="@+id/top_banner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical">
+        
+        <!-- 标题 -->
+        <include layout="@layout/activity_header"/>
+	    
+	    <!-- 搜索框 -->
+	    <RelativeLayout 
+	        android:layout_width="match_parent"
+	        android:layout_height="50dp"
+	        android:background="@drawable/free_experience_seach_bg">
+	        
+	        <!-- 搜索文本框 -->
+	        <EditText android:id="@+id/search_key"
+                style="@style/free_experience_search"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/free_experience_search_text_height"
+                android:layout_marginLeft="@dimen/free_experience_search_text_left"
+                android:layout_marginStart="@dimen/free_experience_search_text_left"
+                android:layout_marginRight="@dimen/free_experience_search_text_right"
+                android:layout_marginEnd="@dimen/free_experience_search_text_right"
+                android:layout_marginTop="@dimen/free_experience_search_text_top"
+                android:paddingLeft="@dimen/free_experience_search_text_padding_left"
+                android:paddingStart="@dimen/free_experience_search_text_padding_left"
+                android:paddingRight="@dimen/free_experience_search_text_padding_right"
+                android:paddingEnd="@dimen/free_experience_search_text_padding_right"
+                android:inputType="text"
+                android:singleLine="true"
+                android:maxLines="1" />
+
+	        <!-- 搜索按钮 -->
+            <ImageButton android:id="@+id/btn_search"
+                android:layout_width="@dimen/free_experience_search_btn_width"
+                android:layout_height="@dimen/free_experience_search_btn_height"
+                android:layout_alignBottom="@id/search_key"
+                android:layout_alignRight="@id/search_key"
+                android:layout_alignEnd="@id/search_key"
+                android:layout_alignTop="@id/search_key"
+                android:background="@color/transparent"
+                android:contentDescription="@string/free_experience_search_btn_desc"
+                android:scaleType="centerInside"
+                android:src="@drawable/free_experience_search_btn_img" />
+	        
+	    </RelativeLayout>
+    </LinearLayout>
+
+    <!-- Fragement View -->
+    <FrameLayout android:id="@+id/fragment_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/footer_banner"
+        android:layout_below="@id/top_banner" />
+    
+    <!-- 底部菜单 -->
+    <include android:id="@+id/footer_banner" 
+        layout="@layout/activity_footer" 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"/>
+    
+</RelativeLayout>

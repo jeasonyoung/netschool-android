@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <!-- 顶部返回条高度 -->
+    <dimen name="top_banner_height">50.0dp</dimen>
+    <!-- 顶部返回按钮高度 -->
+    <dimen name="top_btn_return_height">30.0dp</dimen>
+    <!-- 顶部返回按钮左边间距 -->
+    <dimen name="top_btn_return_left">10.0dp</dimen>
+    
+    <!-- 登录Activity -->
+    <dimen name="login_logo_top">70.0dp</dimen><!-- 登录界面login顶部间距 -->
+    <dimen name="login_input_top">20.0dp</dimen><!-- 登录输入框顶部间距 -->
+    <dimen name="login_input_left">20.0dp</dimen><!-- 登录输入框左边间距 -->
+    <dimen name="login_input_right">20.0dp</dimen><!-- 登录输入框右边间距 -->
+    <dimen name="login_input_height">80.0dp</dimen><!-- 登录输入框高度 -->
+    <dimen name="login_rememeber_top">15.0dp</dimen>
+    <dimen name="login_buttons_top">20.0dp</dimen>
+    <dimen name="login_buttons_height">50.0dp</dimen>
+    
+    <!-- 主界面Activity -->
+    <dimen name="main_top_logo_height">40.0dp</dimen>
+    <dimen name="main_gridview_margin">10.0dp</dimen>
+    <dimen name="main_gridview_padding">5.0dp</dimen>
+    <dimen name="main_gridview_horizontal_spacing">30.0dp</dimen>
+    <dimen name="main_gridview_vertical_spacing">30.0dp</dimen>
+    <dimen name="main_gridview_item_top">5.0dp</dimen>
+    
+    <!-- 我的课程 Activity -->
+    <dimen name="my_course_item_group_height">50.0dp</dimen>
+    
+    <!-- 播放器 Activity -->
+    <dimen name="play_video_volumn_control_height">40.0dp</dimen>
+    <dimen name="play_video_volumn_control_top">5.0dp</dimen>
+    <dimen name="play_video_volumn_control_return_left">10.0dp</dimen>
+    <dimen name="play_video_volumn_control_title_left">10.0dp</dimen>
+    <dimen name="play_video_volumn_control_vol_left">5.0dp</dimen>
+    <dimen name="play_video_volumn_control_vol_right">5.0dp</dimen>
+    <dimen name="play_video_volumn_control_vol_icon_width">60.0dp</dimen>
+    <dimen name="play_video_video_control_left">30.0dp</dimen>
+    <dimen name="play_video_video_control_right">30.0dp</dimen>
+    <dimen name="play_video_video_control_bottom">2.0dp</dimen>
+    
+    <!-- 下载 Activity -->
+    
+    <!-- 免费体验 Activity -->
+    <dimen name="free_experience_search_text_height">40.0dp</dimen>
+    <dimen name="free_experience_search_text_top">5.0dp</dimen>
+    <dimen name="free_experience_search_text_left">10.0dp</dimen>
+    <dimen name="free_experience_search_text_right">10.0dp</dimen>
+    <dimen name="free_experience_search_text_padding_left">13.5dp</dimen>
+    <dimen name="free_experience_search_text_padding_right">36.0dp</dimen>
+    <dimen name="free_experience_search_btn_width">40.0dp</dimen>
+    <dimen name="free_experience_search_btn_height">40.0dp</dimen>
+    <dimen name="free_experience_item_height">35.0dp</dimen>
+    
+    <!-- 你问我答－我的提问 Activity -->
+    <dimen name="answer_submit_margin">5.0dp</dimen>
+    <dimen name="answer_submit_padding">2.0dp</dimen>
+    <dimen name="answer_submit_input_height">30.0dp</dimen>
+    <dimen name="answer_detail_margin">10.0dp</dimen>
+    <dimen name="answer_detail_padding">5.0dp</dimen>
+    
+    <!-- 字体通用 -->
+    <dimen name="text_medium_size">16.0sp</dimen>
+    <dimen name="text_small_size">14.0sp</dimen>
+    <dimen name="text_little_size">12.0sp</dimen>
+    <dimen name="text_large_size">18.0sp</dimen>
+    
+    <dimen name="title_medium_size">20.0sp</dimen>
+    <dimen name="title_small_size">18.0sp</dimen>
+    <dimen name="title_large_size">22.0sp</dimen>
+    <dimen name="title_huge_size">24.0sp</dimen>
+</resources>

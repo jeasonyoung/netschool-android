@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 课程资源数据项View -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/free_experience_lesson_item_bg"
+    android:orientation="vertical" >
+    
+    <TextView android:id="@+id/lesson_title"
+        style="@style/free_experience_lesson_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="@dimen/free_experience_item_height"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginEnd="5dp"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp"
+        android:drawableLeft="@drawable/my_course_lesson_item_left_icon"
+        android:drawableStart="@drawable/my_course_lesson_item_left_icon"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:textSize="@dimen/text_medium_size" />
+    
+</LinearLayout>

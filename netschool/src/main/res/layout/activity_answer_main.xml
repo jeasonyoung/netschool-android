@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 答疑 Activity -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+    
+    <!-- top  -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/top_banner_height"
+        android:background="@color/main_top_bgcolor">
+        
+        <!-- 返回按钮 -->
+	   	<ImageButton android:id="@+id/btn_return"
+	           android:layout_width="wrap_content"
+	           android:layout_height="@dimen/top_btn_return_height"
+	           android:layout_alignParentLeft="true"
+	           android:layout_alignParentStart="true"
+	           android:layout_centerVertical="true"
+	           android:layout_marginLeft="@dimen/top_btn_return_left"
+	           android:layout_marginStart="@dimen/top_btn_return_left"
+	           android:background="@color/transparent"
+	           android:scaleType="centerCrop"
+	           android:src="@drawable/btn_return_bg_img" 
+	           android:contentDescription="@string/btn_return_bg_img_desc"/>
+        
+        <!-- 标题 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:background="@color/transparent"
+            android:fadingEdge="vertical"
+            android:gravity="center"
+            android:text="@string/answer_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/title_huge_size" />
+        
+        <!-- 刷新 -->
+        <ImageButton android:id="@+id/btn_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/transparent"
+            android:src="@drawable/refresh_img"
+            android:contentDescription="@string/answer_refresh_desc" />
+        
+    </RelativeLayout>
+    
+    <!--  我要提问 -->
+    <RelativeLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:background="@drawable/answer_main_bg">
+        
+         <Button android:id="@+id/btn_answer" 
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content" 
+             android:layout_alignParentRight="true"
+             android:layout_alignParentEnd="true"
+             android:layout_marginRight="10dp"
+             android:layout_marginEnd="10dp"
+             android:layout_centerVertical="true"
+             android:background="@drawable/btn_answer_bg_icon"
+             android:text="@string/btn_answer_title"
+             android:textColor="@color/black"
+             android:textSize="@dimen/text_medium_size"
+             android:textStyle="bold" />
+        
+    </RelativeLayout>
+    
+    <!-- 无数据时显示 -->
+    <include android:id="@+id/nodata_view" layout="@layout/activity_nodata"/>
+    
+    <!-- 数据列表 -->
+     <ListView android:id="@+id/list_answers"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:background="@color/white"
+         android:cacheColorHint="@color/transparent"
+         android:divider="@drawable/topic_driver"
+         android:dividerHeight="2dp"
+         android:fadingEdge="none" />
+     
+</LinearLayout>

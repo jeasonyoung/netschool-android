@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 课程资源Fragment -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+     <!-- 无数据时显示 -->
+     <include android:id="@+id/nodata_view" layout="@layout/activity_nodata" />
+    
+    <!-- 数据列表 -->
+    <ListView android:id="@+id/list_lesson"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@drawable/topic_driver"
+            android:dividerHeight="1dp"
+            android:fadingEdge="none" />
+
+</LinearLayout>

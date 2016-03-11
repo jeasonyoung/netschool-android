@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="1" 
+    android:versionName="1.0"  
+    android:installLocation="auto" 
+    package="com.examw.netschool" >
+
+    <uses-sdk android:minSdkVersion="9"  android:targetSdkVersion="23"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    
+    <!-- 在SDCard中创建与删除文件权限 -->
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+
+    <application android:name=".app.AppContext"
+        android:allowBackup="true"
+        android:icon="@drawable/app_logo"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon,android:label,android:theme">
+        
+        <!-- 启动Activity -->
+        <activity android:name=".ch.StartActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        
+        <!-- 引导页Activity -->
+        <activity android:name=".ch.GuideActivity"
+            android:screenOrientation="portrait"/>
+        
+        <!-- 学员登录Activity -->
+        <activity android:name=".ch.LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+        
+        <!-- 主界面Activity -->
+        <activity android:name=".ch.MainActivity"
+            android:screenOrientation="portrait"/>
+        
+        <!-- 我的课程Activity -->
+        <activity android:name=".ch.MyCourseActivity"
+            android:screenOrientation="portrait"/>
+        
+        <!-- 我的课程资源Activity -->
+        <activity android:name=".ch.MyCourseLessonActivity"
+            android:screenOrientation="portrait"/>
+         
+        <!-- 播放Activity-->
+        <activity android:name=".ch.VideoPlayActivity"
+             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+             android:screenOrientation="landscape"/>
+         
+        <!-- 下载Activity -->
+        <activity android:name=".ch.DownloadActivity"
+            android:screenOrientation="portrait"/>
+         
+        <!-- 免费体验Activity -->
+        <activity android:name=".ch.FreeExperienceActivity"
+            android:screenOrientation="portrait"/>
+         
+        <!-- 答疑主题Activity -->
+        <activity android:name=".ch.AnswerActivity"
+            android:screenOrientation="portrait"/>
+
+        <!-- 答疑明细Activity -->
+        <activity android:name=".ch.AnswerDetailActivity"
+            android:screenOrientation="portrait"/>
+        <!-- 答疑提交Activity -->
+        <activity android:name=".ch.AnswerSubmitActivity"
+            android:screenOrientation="portrait"/>
+        
+        <!-- 播放记录 -->
+        <activity android:name=".ch.PlayRecordActivity"
+            android:screenOrientation="portrait"/>
+         
+        <!-- 意见反馈 -->
+        <activity android:name=".ch.SuggestActivity"
+            android:screenOrientation="portrait"/>
+         
+        <!-- vitamio初始化 -->
+        <activity android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+           	android:windowSoftInputMode="stateAlwaysHidden"/>
+
+        <!-- 下载服务 -->
+        <service android:name=".service.DownloadService"/>
+
+        <!-- 分发渠道 -->
+        <meta-data android:name="channel" android:value="360"/>
+    </application>
+</manifest>
