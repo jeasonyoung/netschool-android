@@ -66,7 +66,7 @@ public final class DownloadFactory {
             factory = new DownloadFactory();
         }
         //创建下载存储目录
-        factory.createPath(AppContext.getCurrentUserId());
+        factory.createPath(AppContext.getCurrentUsername());
         //返回实例对象。
         return factory;
     }
