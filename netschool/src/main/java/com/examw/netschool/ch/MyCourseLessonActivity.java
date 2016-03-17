@@ -9,14 +9,12 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.examw.netschool.app.AppContext;
 import com.examw.netschool.app.Constant;
-import com.examw.netschool.dao.DownloadDao;
 import com.examw.netschool.dao.LessonDao;
-import com.examw.netschool.model.Download;
 import com.examw.netschool.model.JSONCallback;
 import com.examw.netschool.model.Lesson;
-import com.examw.netschool.model.Download.DownloadState;
 import com.examw.netschool.util.APIUtils;
 import com.examw.netschool.R;
+import com.examw.netschool.util.DownloadFactory;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -313,25 +311,18 @@ public class MyCourseLessonActivity extends Activity {
 			this.tvLesson.setText(this.lesson.getName());
 			//下载状态
 			if(StringUtils.isNotBlank(this.lesson.getId())){
-				//初始化
-				final DownloadDao downloadDao = new DownloadDao();
-				//是否存在
-				if(downloadDao.hasDownload(lesson.getId())){//已下载
-					//加载下载数据
-					final Download download = downloadDao.getDownload(lesson.getId());
-					final DownloadState state = DownloadState.parse(download.getState());
-					if(state== DownloadState.FINISH){//下载完成
-						tvState.setText(state.getName());
-						tvState.setTextColor(getResources().getColor(R.color.green));
-					}else{//下载中
-						tvState.setText(state.getName());
-						tvState.setTextColor(getResources().getColor(R.color.red));
-					}
-				}else{//未下载
-					tvState.setText(null);
+				//下载是否存在
+				if(DownloadFactory.getInstance()
+						.hasDownloadFile(new DownloadFactory.DownloadItemConfig(
+										this.lesson.getId(),
+										this.lesson.getName(),
+										this.lesson.getPriorityUrl()))){
+					tvState.setText("本地");
+					tvState.setTextColor(getResources().getColor(R.color.green));
+				}else{
+					tvState.setText("在线");
 					tvState.setTextColor(getResources().getColor(R.color.grey));
 				}
-				
 			}
 		}
 		/*

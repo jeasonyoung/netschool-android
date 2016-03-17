@@ -3,11 +3,10 @@ package com.examw.netschool.ch;
 import org.apache.commons.lang3.StringUtils;
 
 import com.examw.netschool.app.Constant;
-import com.examw.netschool.dao.DownloadDao;
 import com.examw.netschool.dao.LessonDao;
-import com.examw.netschool.model.Download;
 import com.examw.netschool.model.Lesson;
 import com.examw.netschool.R;
+import com.examw.netschool.util.DownloadFactory;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -22,6 +21,10 @@ import android.view.View.OnClickListener;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * 下载Activity。
  * @author jeasonyoung
@@ -109,18 +112,15 @@ public class DownloadActivity extends FragmentActivity implements OnCheckedChang
 					Log.d(TAG, "后台线程加载下载数据...");
 					//检查课程资源ID
 					if(StringUtils.isBlank(lessonId)) return null;
-					//初始化
-					final DownloadDao downloadDao = new DownloadDao();
-					//检查是否存在
-					if(!downloadDao.hasDownload(lessonId)){
-						//初始化
-						final LessonDao lessonDao = new LessonDao();
-						//查询课程信息
-						final Lesson lesson = lessonDao.getLesson(lessonId);
-						if(lesson != null){
-							//添加到下载
-							downloadDao.add(new Download(lesson)); 
-						}
+					//查询课程信息
+					final Lesson lesson = new LessonDao().getLesson(lessonId);
+					if(lesson != null){
+						//初始化下载配置
+						final List<DownloadFactory.DownloadItemConfig> configs = new ArrayList<DownloadFactory.DownloadItemConfig>();
+						configs.add(new DownloadFactory.DownloadItemConfig(lesson.getId(), lesson.getName(), lesson.getPriorityUrl()));
+						//下载工厂实例
+						DownloadFactory.getInstance()
+								.beginRequest(configs, true);
 					}
 				}catch(Exception e){
 					Log.e(TAG, "后台线程加载下载数据异常:" + e.getMessage(), e);

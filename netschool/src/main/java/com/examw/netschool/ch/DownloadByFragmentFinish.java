@@ -6,10 +6,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 
 import com.examw.netschool.app.Constant;
-import com.examw.netschool.dao.DownloadDao;
-import com.examw.netschool.model.Download;
-import com.examw.netschool.model.Download.DownloadState;
 import com.examw.netschool.R;
+import com.examw.netschool.util.DownloadFactory;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -36,20 +34,20 @@ import android.widget.TextView;
  * @since 2015年9月11日
  */
 public class DownloadByFragmentFinish extends Fragment {
-	private static final String TAG = "DownloadByFragmentFinish";
+	private static final String TAG = "downloadFinish";
 	private LinearLayout nodataView;
-
-	private final List<Download> dataSource;
+	private final List<DownloadFactory.DownloadItemConfig> dataSource;
 	private final FinishAdapter adapter;
+
 	/**
 	 * 构造函数。
-	 * @param userId
 	 */
 	public DownloadByFragmentFinish(){
 		Log.d(TAG, "初始化...");
-		this.dataSource = new ArrayList<Download>();
+		this.dataSource = new ArrayList<DownloadFactory.DownloadItemConfig>();
 		this.adapter = new FinishAdapter(this.dataSource);
 	}
+
 	/*
 	 * 重载创建View
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
@@ -80,10 +78,21 @@ public class DownloadByFragmentFinish extends Fragment {
 	public void onStart() {
 		super.onStart();
 		Log.d(TAG, "重载启动，异步加载数据...");
+		//绑定下载事件监听。
+		DownloadFactory.getInstance()
+				.addActionListener(this.onDownloadActionListener);
 		//异步加载数据
 		new AsyncLoadData().execute((Void)null);
 	}
-	//长按删除下载
+
+    @Override
+    public void onDestroy() {
+        DownloadFactory.getInstance()
+                .removeActionListener(this.onDownloadActionListener);
+        super.onDestroy();
+    }
+
+    //长按删除下载
 	private OnItemLongClickListener onItemLongClickListener = new OnItemLongClickListener() {
 		/*
 		 * 长按删除事件处理。
@@ -94,7 +103,7 @@ public class DownloadByFragmentFinish extends Fragment {
 			Log.d(TAG, "下载["+position+"]删除...");
 			if(dataSource.size() > position){
 				//获取下载课程
-				final Download download = dataSource.get(position);
+				final DownloadFactory.DownloadItemConfig download = dataSource.get(position);
 				if(download != null){
 					//取消下载二次确认
 					new AlertDialog.Builder(getActivity()).setIcon(android.R.drawable.ic_dialog_alert)
@@ -117,13 +126,10 @@ public class DownloadByFragmentFinish extends Fragment {
 						 */
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							Log.d(TAG, "删除下载课程资源["+download+"]...");
-							//初始化
-							final DownloadDao downloadDao = new DownloadDao();
-							//从数据库中删除
-							downloadDao.delete(download.getLessonId());
-							//重新刷新数据
-							new AsyncLoadData().execute((Void)null);
+							Log.d(TAG, "删除下载课程资源[" + download + "]...");
+							//删除
+							DownloadFactory.getInstance()
+									.deleteDownload(download);
 						}
 					}).show();
 					return true;
@@ -132,21 +138,51 @@ public class DownloadByFragmentFinish extends Fragment {
 			return false;
 		}
 	};
+
+	/**
+	 * 下载事件监听器。
+	 */
+	private DownloadFactory.DownloadActionListener onDownloadActionListener = new DownloadFactory.DownloadActionListener(){
+		@Override
+		public void waiting(DownloadFactory.DownloadItemData data) {
+
+		}
+
+		@Override
+		public void start(DownloadFactory.DownloadItemData data) {
+
+		}
+
+		@Override
+		public void failedDownload(DownloadFactory.DownloadItemData data, Exception e) {
+
+		}
+
+		@Override
+		public void updateProgress(DownloadFactory.DownloadItemData data) {
+
+		}
+
+		@Override
+		public void finishedDownload(DownloadFactory.DownloadItemData data) {
+			//重新刷新数据
+			new AsyncLoadData().execute((Void)null);
+		}
+	};
+
 	//异步加载数据
-	private class AsyncLoadData extends AsyncTask<Void, Void, List<Download>>{
+	private class AsyncLoadData extends AsyncTask<Void, Void, List<DownloadFactory.DownloadItemConfig>>{
 		 private static final String TAG = "AsyncLoadData";
 		/*
 		 * 后台线程处理。
 		 * @see android.os.AsyncTask#doInBackground(java.lang.Object[])
 		 */
 		@Override
-		protected List<Download> doInBackground(Void... params) {
+		protected List<DownloadFactory.DownloadItemConfig> doInBackground(Void... params) {
 			try{
 				Log.d(TAG, "异步线程加载数据...");
-				//初始化
-				final DownloadDao downloadDao = new DownloadDao();
-				//加载数据
-				return downloadDao.loadDownloads(DownloadState.FINISH);
+				//加载已下载完成的数据
+				return DownloadFactory.getInstance().loadFinishedFiles();
 			}catch(Exception e){
 				Log.e(TAG, "异步线程加载数据异常:" + e.getMessage(), e);
 			}
@@ -157,7 +193,7 @@ public class DownloadByFragmentFinish extends Fragment {
 		 * @see android.os.AsyncTask#onPostExecute(java.lang.Object)
 		 */
 		@Override
-		protected void onPostExecute(List<Download> result) {
+		protected void onPostExecute(List<DownloadFactory.DownloadItemConfig> result) {
 			//移除数据源
 			dataSource.clear();
 			//
@@ -176,13 +212,13 @@ public class DownloadByFragmentFinish extends Fragment {
 	}
 	//数据适配器
 	private class FinishAdapter extends BaseAdapter{
-		private static final String TAG = "FinishAdapter";
-		private final List<Download> downloads;
+		private static final String TAG = "finishAdapter";
+		private final List<DownloadFactory.DownloadItemConfig> downloads;
 		/**
 		 * 构造函数。
 		 * @param downloads
 		 */
-		public FinishAdapter(List<Download> downloads){
+		public FinishAdapter(List<DownloadFactory.DownloadItemConfig> downloads){
 			Log.d(TAG, "初始化...");
 			this.downloads = downloads;
 		}
@@ -220,7 +256,7 @@ public class DownloadByFragmentFinish extends Fragment {
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
 			Log.d(TAG, "获取数据行View..." + position);
-			ViewHolder viewHolder = null;
+			ViewHolder viewHolder;
 			if(convertView == null){
 				Log.d(TAG, "新建行..." + position);
 				//加载行布局文件
@@ -235,7 +271,7 @@ public class DownloadByFragmentFinish extends Fragment {
 				viewHolder = (ViewHolder)convertView.getTag();
 			}
 			//加载数据
-			viewHolder.loadData((Download)this.getItem(position));
+			viewHolder.loadData((DownloadFactory.DownloadItemConfig)this.getItem(position));
 			//返回
 			return convertView;
 		}
@@ -262,13 +298,13 @@ public class DownloadByFragmentFinish extends Fragment {
 		 * 加载数据。
 		 * @param data
 		 */
-		public void loadData(Download data){
+		public void loadData(DownloadFactory.DownloadItemConfig data){
 			Log.d(TAG, "加载数据..." + data);
 			if(data == null) return;
 			//获取课程资源ID。
-			this.lessonId = data.getLessonId();
+			this.lessonId = data.getId();
 			//设置课程资源名称
-			this.tvTitle.setText(data.getLessonName());
+			this.tvTitle.setText(data.getName());
 		}
 		/*
 		 * 播放按钮。
@@ -282,7 +318,6 @@ public class DownloadByFragmentFinish extends Fragment {
 			final Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
 			intent.putExtra(Constant.CONST_LESSON_ID, this.lessonId);
 			getActivity().startActivity(intent);
-			
 		}
 	}
 }

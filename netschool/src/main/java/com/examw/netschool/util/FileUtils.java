@@ -35,7 +35,7 @@ public final class FileUtils {
 	 * 加密/解密文件。
 	 * @param file 下载的文件
 	 * @param skip 插入的位置
-	 * @param data 密钥
+	 * @param keys 密钥
 	 */
 	private synchronized static void encryptFile(File file, long skip, byte[] keys){
 		if(file == null || skip < 0 || keys.length == 0)return;

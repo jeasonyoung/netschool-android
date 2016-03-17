@@ -55,7 +55,7 @@ public class AppContext extends Application {
 	public void onCreate() {
 		Log.d(TAG, "重载应用创建...");
 		super.onCreate();
-		 mContext = this;
+		mContext = this;
 	}
 	/**
 	 * 获取窗体管理器。

@@ -399,7 +399,7 @@ public class MyCourseActivity extends Activity {
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 			Log.d(TAG, "加载分组["+groupPosition+"]视图UI...");
-			GroupViewHolder viewHolder = null;
+			GroupViewHolder viewHolder;
 			if(convertView == null){
 				Log.d(TAG, "新增分组["+groupPosition+"]View...");
 				//加载视图

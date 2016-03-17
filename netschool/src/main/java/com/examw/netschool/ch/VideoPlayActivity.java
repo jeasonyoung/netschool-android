@@ -9,14 +9,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.examw.netschool.app.AppContext;
 import com.examw.netschool.app.Constant;
-import com.examw.netschool.dao.DownloadDao;
 import com.examw.netschool.dao.LessonDao;
 import com.examw.netschool.dao.PlayRecordDao;
-import com.examw.netschool.model.Download;
 import com.examw.netschool.model.Lesson;
 import com.examw.netschool.model.PlayRecord;
-import com.examw.netschool.model.Download.DownloadState;
-import com.examw.netschool.util.FileUtils;
+import com.examw.netschool.util.DownloadFactory;
 import com.examw.netschool.util.Utils;
 import com.examw.netschool.R;
 
@@ -61,7 +58,7 @@ import io.vov.vitamio.widget.VideoView;
  *
  */
 public class VideoPlayActivity extends Activity {
-	private static final String TAG = "VideoPlayActivity";
+	private static final String TAG = "videoPlay";
 	private static final int VIDEO_STEP_SPEED = 5000;
 	
 	private PopupWindow topBar,footerBar;
@@ -78,8 +75,6 @@ public class VideoPlayActivity extends Activity {
 	
 	private int volumnMax,currentPlayTimeBySecond;
 	private String lessonId, lessonName,recordId, lessonPlayUrl;
-	
-	private File lessonVideoFile;
 	
 	private AutoUpdateVideoSeekHandler autoUpdateVideoSeekHandler;
 	/*
@@ -407,27 +402,6 @@ public class VideoPlayActivity extends Activity {
 						Log.e(TAG, "课程资源ID不存在!");
 						return null;
 					}
-					//检查视频是否被下载,优先加载下载到本地的数据
-					final DownloadDao downloadDao = new DownloadDao();
-					if(downloadDao.hasDownload(lessonId)){
-						Log.d(TAG, "检查是否存在本地视频可以播放...");
-						final Download download = downloadDao.getDownload(lessonId);
-						if(download != null && download.getState() == DownloadState.FINISH.getValue()){
-							lessonName = download.getLessonName();
-							lessonVideoFile = new File(download.getFilePath());
-							if(lessonVideoFile.exists()){
-								try{
-									//解密视频
-									FileUtils.encryptFile(lessonVideoFile, lessonId);
-								}catch(Exception e){
-									Log.e(TAG, "视频文件[课程ID:" + lessonId +"]解密异常:" + e.getMessage(), e);
-								}
-								//
-								Log.d(TAG, "播放本地视频:" + lessonVideoFile.getAbsolutePath());
-								return Uri.parse(lessonVideoFile.getAbsolutePath());
-							}
-						}
-					}
 					//播放URL
 					String url = lessonPlayUrl;
 					//加载课程资源。
@@ -438,6 +412,14 @@ public class VideoPlayActivity extends Activity {
 						lessonName = lesson.getName();
 						//获取优先视频URL
 						url = lesson.getPriorityUrl();
+
+						//检查是否已下载
+						final File path = DownloadFactory.getInstance()
+								.loadDownloadFilePath(new DownloadFactory.DownloadItemConfig(lessonId,lessonName, url));
+						if(path != null){
+							Log.d(TAG, "doInBackground: 本地播放地址=>" + path);
+							return Uri.parse(path.getAbsolutePath());
+						}
 					}
 					Log.d(TAG, "video-url:" + url);
 					//检查网络状态
@@ -752,24 +734,6 @@ public class VideoPlayActivity extends Activity {
 	protected void onStop() {
 		super.onStop();
 		this.backRecord();
-	}
-	/*
-	 * 重载销毁处理。
-	 * @see android.app.Activity#onDestroy()
-	 */
-	@Override
-	protected void onDestroy() {
-		if(this.lessonVideoFile != null && this.lessonVideoFile.exists()){
-			try{
-				//加密
-				FileUtils.encryptFile(lessonVideoFile, lessonId);
-				 Log.d(TAG, "加密文件完成");
-			}catch(Exception e){
-				Log.e(TAG, "加密时发生异常:" + e.getMessage(), e);
-			}
-		}
-		//
-		super.onDestroy();
 	}
 	
 	//自动更新视频工具栏消息数据处理。

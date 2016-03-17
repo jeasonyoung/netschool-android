@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.examw.netschool.app.AppContext;
 import com.examw.netschool.model.MainItem;
-import com.examw.netschool.service.DownloadService;
 import com.examw.netschool.R;
 
 import android.app.Activity;
@@ -187,9 +186,6 @@ public class MainActivity extends Activity implements OnItemClickListener{
 	 */
 	@Override
 	protected void onDestroy() {
-		//发广播,通知下载服务service结束所有的线程,同时结束自己
-        this.sendBroadcast(new Intent(DownloadService.BROADCAST_SERVICE_STOP));//发送广播  
-		//
         super.onDestroy();
 	}
 	//数据适配器
