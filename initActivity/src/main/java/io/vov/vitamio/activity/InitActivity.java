@@ -30,8 +30,6 @@ import io.vov.vitamio.Vitamio;
 
 import java.lang.ref.WeakReference;
 
-import io.vov.vitamio.R;
-
 public class InitActivity extends Activity {
   public static final String FROM_ME = "fromVitamioInitActivity";
   private ProgressDialog mPD;
@@ -47,14 +45,10 @@ public class InitActivity extends Activity {
       protected void onPreExecute() {
         mPD = new ProgressDialog(InitActivity.this);
         mPD.setCancelable(false);
-        mPD.setMessage(InitActivity.this.getString(R.string.vitamio_init_decoders));
+        mPD.setMessage(InitActivity.this.getString(getResources().getIdentifier("vitamio_init_decoders", "string", getPackageName())));
         mPD.show();
       }
 
-      @Override
-      protected Boolean doInBackground(Object... params) {
-        return Vitamio.initialize(InitActivity.this, R.raw.libarm);
-      }
 
       @Override
       protected void onPostExecute(Boolean inited) {
@@ -62,6 +56,13 @@ public class InitActivity extends Activity {
           uiHandler.sendEmptyMessage(0);
         }
       }
+
+
+	@Override
+	protected Boolean doInBackground(Object... arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
     }.execute();
   }

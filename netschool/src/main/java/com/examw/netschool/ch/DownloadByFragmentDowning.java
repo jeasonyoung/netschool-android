@@ -392,7 +392,16 @@ public class DownloadByFragmentDowning extends Fragment {
 				this.btnPause.setVisibility(View.VISIBLE);
 				this.btnPause.setEnabled(true);
 			}else{
-				this.tvMsg.setText("开始下载");
+				final Drawable top = res.getDrawable(R.drawable.download_group_downing_item_btn_continue_icon);
+				if(top != null){
+					top.setBounds(0, 0, top.getMinimumWidth(), top.getMinimumHeight());
+					this.btnPause.setImageDrawable(top);
+				}
+				final CharSequence title = res.getText(R.string.download_group_downing_item_btn_pause);
+				this.btnPause.setContentDescription(title);
+                this.btnPause.setVisibility(View.VISIBLE);
+                this.btnPause.setEnabled(true);
+                this.tvMsg.setText(title);
 			}
 		}
 

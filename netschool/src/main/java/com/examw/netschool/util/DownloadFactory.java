@@ -416,7 +416,14 @@ public final class DownloadFactory {
         if(cfgFile != null){
             try {
                 Gson g = new Gson();
-                g.toJson(config, new FileWriter(cfgFile));
+                final String json = g.toJson(config);
+                Log.d(TAG, "saveConfigFile: json=>" + json);
+                if(StringUtils.isNotBlank(json)){
+                    FileWriter writer = new FileWriter(cfgFile);
+                    writer.write(json);
+                    writer.close();
+                    Log.d(TAG, "saveConfigFile: 写入文件成功!");
+                }
             }catch (Exception e){
                 Log.e(TAG, "saveConfigFile: 生成json文件["+cfgFile+"]异常:" + e, e);
             }
