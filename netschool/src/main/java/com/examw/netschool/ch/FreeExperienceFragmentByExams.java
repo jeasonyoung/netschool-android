@@ -15,6 +15,7 @@ import com.examw.netschool.model.JSONCallback;
 import com.examw.netschool.util.APIUtils;
 import com.examw.netschool.R;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -37,26 +38,38 @@ import android.widget.Toast;
  * @since 2015年9月18日
  */
 public class FreeExperienceFragmentByExams extends Fragment implements OnItemClickListener {
-	private static final String TAG = "FreeExperienceFragmentByExams";
-	private final Search search;
+	private static final String TAG = "freeExperienceExams";
+	private Search search;
 	
 	private final List<Exam> exams;
 	private final ExamAdapter adapter;
 	
 	private View nodataView;
-	/**
-	 * 构造函数。
-	 * @param userId
-	 * @param search
-	 */
-	public FreeExperienceFragmentByExams(Search search){
+
+    /**
+     * 构造函数。
+     * @param search
+     * 查询框
+     */
+	@SuppressLint("ValidFragment")
+    public FreeExperienceFragmentByExams(Search search){
 		Log.d(TAG, "初始化...");
-		this.search = search;
-		this.search.setOnClickListener(this.onSearchClickListener);
+        if(search != null) {
+            this.search = search;
+            this.search.setOnClickListener(this.onSearchClickListener);
+        }
 		
 		this.exams = new ArrayList<Exam>();
 		this.adapter = new ExamAdapter(this.exams);
 	}
+
+    /**
+     * 构造函数。
+     */
+    public FreeExperienceFragmentByExams(){
+        this(null);
+    }
+
 	/*
 	 * 重载创建View。
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)

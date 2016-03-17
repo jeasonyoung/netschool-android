@@ -16,6 +16,7 @@ import com.examw.netschool.model.Lesson;
 import com.examw.netschool.util.APIUtils;
 import com.examw.netschool.R;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -39,9 +40,9 @@ import android.widget.Toast;
  * @since 2015年9月18日
  */
 public class FreeExperienceFragmentByLesson extends Fragment implements OnItemClickListener {
-	private static final String TAG = "FreeExperienceFragmentByLesson";
+	private static final String TAG = "freeExperienceLesson";
 	private final String classId;
-	private final Search search;
+	private Search search;
 	
 	private final List<Lesson> lessons;
 	private final LessonAdapter adapter;
@@ -50,17 +51,29 @@ public class FreeExperienceFragmentByLesson extends Fragment implements OnItemCl
 	/**
 	 * 构造函数。
 	 * @param classId
+	 * 班级ID。
 	 * @param search
+     * 搜索条。
 	 */
-	public FreeExperienceFragmentByLesson(String classId, Search search){
+	@SuppressLint("ValidFragment")
+    public FreeExperienceFragmentByLesson(String classId, Search search){
 		Log.d(TAG, "初始化...");
 		this.classId = classId;
-		this.search = search;
-		this.search.setOnClickListener(this.onSearchClickListener);
-		
+        if(search != null) {
+            this.search = search;
+            this.search.setOnClickListener(this.onSearchClickListener);
+        }
 		this.lessons = new ArrayList<Lesson>();
 		this.adapter = new LessonAdapter(this.lessons);
 	}
+
+    /**
+     * 构造函数。
+     */
+    public FreeExperienceFragmentByLesson(){
+        this(null, null);
+    }
+
 	/*
 	 * 重载创建View。
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)

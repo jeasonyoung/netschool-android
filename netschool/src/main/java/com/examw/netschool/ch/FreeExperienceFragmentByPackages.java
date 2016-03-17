@@ -15,6 +15,7 @@ import com.examw.netschool.model.PackageClass;
 import com.examw.netschool.util.APIUtils;
 import com.examw.netschool.R;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -38,9 +39,9 @@ import android.widget.Toast;
  * @since 2015年9月18日
  */
 public class FreeExperienceFragmentByPackages extends Fragment {
-	private static final String TAG = "FreeExperienceFragmentByPackages";
+	private static final String TAG = "freeExperiencePackages";
 	private final String examId;
-	private final Search search;
+	private Search search;
 	
 	private final List<PackageClass> packageClasses;
 	private final PackageAdapter adapter;
@@ -49,17 +50,30 @@ public class FreeExperienceFragmentByPackages extends Fragment {
 	/**
 	 * 构造函数。
 	 * @param examId
+     * 考试ID
 	 * @param search
+     * 搜索条。
 	 */
+	@SuppressLint("ValidFragment")
 	public FreeExperienceFragmentByPackages(String examId, Search search){
 		Log.d(TAG, "初始化...");
 		this.examId = examId;
-		this.search = search;
-		this.search.setOnClickListener(this.onSearchClickListener);
-		
+
+        if(search != null) {
+            this.search = search;
+            this.search.setOnClickListener(this.onSearchClickListener);
+        }
+
 		this.packageClasses = new ArrayList<PackageClass>();
 		this.adapter = new PackageAdapter(this.packageClasses);
 	}
+
+    /**
+     * 构造函数。
+     */
+    public FreeExperienceFragmentByPackages(){
+        this(null, null);
+    }
 	/*
 	 * 重载创建View。
 	 * @see android.support.v4.app.Fragment#onCreateView(android.view.LayoutInflater, android.view.ViewGroup, android.os.Bundle)
