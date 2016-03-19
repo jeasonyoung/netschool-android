@@ -1,5 +1,7 @@
 package com.examw.netschool.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
  */
 public class PackageClass implements Serializable,Comparable<PackageClass> {
 	private static final long serialVersionUID = 1L;
-	public static final String TYPE_PACKAGE = "package", TYPE_CLASS = "class";
+	public static final String TYPE_CLASS = "class";
 	
 	private String pid,id,name,type;
 	private Integer orderNo;
@@ -79,7 +81,7 @@ public class PackageClass implements Serializable,Comparable<PackageClass> {
 	
 	/**
 	 * 是否为班级。
-	 * @return
+	 * @return 是否为班级。
 	 */
 	public boolean IsClass(){
 		return StringUtils.isNotBlank(this.type) && StringUtils.equalsIgnoreCase(this.type, TYPE_CLASS);
@@ -104,7 +106,7 @@ public class PackageClass implements Serializable,Comparable<PackageClass> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(PackageClass o) {
+	public int compareTo(@NonNull PackageClass o) {
 		return this.orderNo - o.orderNo;
 	}
 }

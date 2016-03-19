@@ -8,11 +8,10 @@ import android.os.StatFs;
 import android.util.Log;
 
 import com.examw.netschool.app.AppContext;
-import com.examw.netschool.codec.binary.Hex;
-import com.examw.netschool.codec.digest.DigestUtils;
 import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
+
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -216,7 +215,7 @@ public final class DownloadFactory {
         }
         final Context context = AppContext.getContext();
         root = new File(root + File.separator + context.getPackageName() +
-                File.separator + DigestUtils.md5Hex(currentUserId));
+                File.separator + Hex.md5Hex(currentUserId));
         //下载文件存储目录
         this.saveFiles = new File(root + File.separator + DOWNLOAD_FILES_DIR);
         Log.d(TAG, "createPath: 下载文件目录=>" + this.saveFiles);
@@ -237,7 +236,7 @@ public final class DownloadFactory {
         if(source.length() > 60){
             source = source.substring(0, 60);
         }
-        return Hex.encodeHexString(source.getBytes(Charset.forName("UTF-8")));
+        return Hex.encodeHexString(source.getBytes(Hex.DEFAULT_CHARSET));
     }
 
     /**
@@ -317,7 +316,7 @@ public final class DownloadFactory {
      */
     public List<DownloadItemConfig> loadFinishedFiles(){
         Log.d(TAG, "loadFinishedFiles: ...");
-        final List<DownloadItemConfig> list = new ArrayList<DownloadItemConfig>();
+        final List<DownloadItemConfig> list = new ArrayList<>();
         //检查文件目录是否存在
         if(this.saveFiles != null && this.saveFiles.exists()){
             //加载目录下全部文件
@@ -365,7 +364,7 @@ public final class DownloadFactory {
             });
             //下载配置文件存在
             if(configs != null && configs.length > 0){
-                final List<DownloadItemConfig> configList = new ArrayList<DownloadItemConfig>();
+                final List<DownloadItemConfig> configList = new ArrayList<>();
                 for(File file : configs){
                     //排除不存在或非文件
                     if(!file.exists() || !file.isFile()) continue;
@@ -654,7 +653,7 @@ public final class DownloadFactory {
         if(config == null || StringUtils.isBlank(config.getId())) return;
         Log.d(TAG, "continueDownload: 恢复继续下载=>" + config);
         //初始化下载配置
-        final List<DownloadItemConfig> configs = new ArrayList<DownloadItemConfig>();
+        final List<DownloadItemConfig> configs = new ArrayList<>();
         //添加下载配置
         configs.add(config);
         //开启请求下载。
@@ -741,6 +740,7 @@ public final class DownloadFactory {
         /**
          * 线程执行入口。
          */
+        @SuppressWarnings("deprecation")
         @Override
         public void run() {
             try{
@@ -894,6 +894,7 @@ public final class DownloadFactory {
          * 需要最大空间。
          * @return 是否用空间存储。
          */
+        @SuppressWarnings("deprecation")
         private boolean hasSpace(final File file,final long max){
             if(file != null) {
                 if(!file.exists()){

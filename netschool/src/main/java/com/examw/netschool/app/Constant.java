@@ -24,24 +24,7 @@ public final class Constant {
 	public static final String CONST_LESSON_RECORD_ID = "lesson_record_id";
 	
 	public static final String CONST_LESSON_PLAY_URL = "lesson_play_url";
-	
-	/**
-	 *  Handler消息Message的What类型为文本消息。
-	 */
-	public static final int HANLDER_WHAT_MSG = 0;
-	/**
-	 * Handler消息Message的What类型为更新进度。
-	 */
-	public static final int HANLDER_WHAT_PROGRESS = 1;
-	/**
-	 * Handler消息Message的What类型为更新状态。
-	 */
-	public static final int HANLDER_WHAT_STATE = 2;
-	
-	
-	
-	
-	
+
 	/**
 	 * 导航文件配置。
 	 */
@@ -67,17 +50,4 @@ public final class Constant {
 	 * 共享用户名。
 	 */
 	public static final String PREFERENCES_CONFIG_SHARE_USER = "share_username";
-	
-//	/**
-//	 * 当前用户。
-//	 */
-//	public static final String PREFERENCES_CONFIG_CURRENT_USER = "current_user";
-//	/**
-//	 * 当前用户-用户ID。
-//	 */
-//	public static final String PREFERENCES_CONFIG_CURRENT_USER_ID = "current_user_id";
-//	/**
-//	 * 当前用户-用户姓名。
-//	 */
-//	public static final String PREFERENCES_CONFIG_CURRENT_USER_NAME = "current_user_name";
 }

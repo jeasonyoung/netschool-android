@@ -1,13 +1,16 @@
 package com.examw.netschool.util;
 
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
+
+import com.examw.netschool.LoginActivity;
+import com.examw.netschool.R;
+import com.examw.netschool.model.JSONCallback;
+import com.google.gson.Gson;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
@@ -23,18 +26,14 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
-import com.examw.netschool.ch.LoginActivity;
-import com.examw.netschool.R;
-import com.examw.netschool.codec.digest.DigestUtils;
-import com.examw.netschool.model.JSONCallback;
-import com.google.gson.Gson;
-
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * API工具类。
@@ -66,6 +65,7 @@ public final class APIUtils {
 	 * @return
 	 * 返回数据字符串。
 	 */
+	@SuppressWarnings("deprecation")
 	public static String sendPOST(final Resources resources, final  int resUrl, final  Map<String, Object> parameters){
 		try{
 			Log.d(TAG, "发送POST请求...");
@@ -92,6 +92,7 @@ public final class APIUtils {
 	 * @return
 	 * JSON结果数据字符串。
 	 */
+    @SuppressWarnings("deprecation")
 	public static  String sendGET(final Resources resources, final  int resUrl, final  Map<String, Object> parameters){
 		try{
 			Log.d(TAG, "发送GET请求...");
@@ -130,7 +131,7 @@ public final class APIUtils {
 		String url = resources.getString(resUrl);
 		if(StringUtils.isBlank(url)) throw new IllegalArgumentException("resUrl参数未设置值！");
 		//判断业务URL是否包含根URL
-		if(url.indexOf(root_url) == -1){
+		if(!url.startsWith(root_url)){
 			url = root_url + url;
 		}
 		Log.d(TAG, "请求URL:" + url);
@@ -142,8 +143,9 @@ public final class APIUtils {
 	 * @param parameters
 	 * 参数集合。
 	 * @return
-	 * 
+	 * 签名参数列表。
 	 */
+    @SuppressWarnings("deprecation")
 	private static List<BasicNameValuePair> createParametersSignature(final Resources resources, Map<String, Object> parameters){
 		 Log.d(TAG, "创建参数签名...");
 		 //获取令牌
@@ -153,11 +155,11 @@ public final class APIUtils {
 		 final String secretkey = resources.getString(R.string.api_secretkey);
 		 Log.d(TAG, "密钥:" + secretkey);
 		 //初始化参数
-		 final List<BasicNameValuePair> params = new LinkedList<BasicNameValuePair>();
+		 final List<BasicNameValuePair> params = new LinkedList<>();
 		 //添加令牌参数
 		 params.add(new BasicNameValuePair(TOKEN_PARAM_NAME, token));
 		 //初始化参与签名计算集合
-		 final List<String> sign_params = new ArrayList<String>();
+		 final List<String> sign_params = new ArrayList<>();
 		 //添加令牌
 		 sign_params.add(TOKEN_PARAM_NAME + "=" + token);
 		 //参数处理
@@ -187,7 +189,7 @@ public final class APIUtils {
 			final String source = StringUtils.join(sign_params, "&") + secretkey;
 			Log.d(TAG, "拼接后的字符串:" + source);
 			//计算签名
-			final String sign = DigestUtils.md5Hex(source);
+			final String sign = Hex.md5Hex(source);
 			Log.d(TAG, "签名:" + sign);
 			//添加签名
 			params.add(new BasicNameValuePair(SIGN_PARAM_NAME, sign));
@@ -198,8 +200,10 @@ public final class APIUtils {
 	/**
 	 * 发送请求。
 	 * @param method
-	 * @return
+     * 请求方法。
+	 * @return 请求结果。
 	 */
+    @SuppressWarnings("deprecation")
 	private static String sendRequest(HttpUriRequest method){
 		try{
 			Log.d(TAG, "发送请求...");
@@ -238,11 +242,13 @@ public final class APIUtils {
 	public static class CallbackJSON<T>{
 		private Class<T> clazz;
 		private Context context;
+
 		/**
 		 * 构造函数。
 		 * @param context
 		 * 当前上下文。
 		 * @param clazz
+         * 类型。
 		 */
 		public CallbackJSON(Context context, Class<T> clazz){
 			this.context = context;
@@ -253,12 +259,12 @@ public final class APIUtils {
 		 * 数据转换。
 		 * @param json
 		 * JSON字符串。
-		 * @return
+		 * @return 对象。
 		 */
-		public  JSONCallback<T> convert(String json){
+		public JSONCallback<T> convert(String json){
 			Log.d(TAG, "返回的JSON字符串转换为对象....");
 			if(StringUtils.isBlank(json)){
-				return new JSONCallback<T>(false, "服务器未响应!");
+				return new JSONCallback<>(false, "服务器未响应!");
 			}
 			//返回类型处理
 			final Type type = type(JSONCallback.class, this.clazz);
@@ -302,10 +308,9 @@ public final class APIUtils {
 		 * 请求URL资源。
 		 * @param parameters
 		 * 参数集合。
-		 * @return
-		 * 返回对象。
+		 * @return 返回对象。
 		 */
-		public JSONCallback<T> sendPOSTRequest(final Resources resources, final  int resUrl, final  Map<String, Object> parameters){
+		public JSONCallback<T> sendPOSTRequest(final Resources resources, final int resUrl, final Map<String, Object> parameters){
 			return this.convert(sendPOST(resources, resUrl, parameters));
 		}
 		/**
@@ -316,10 +321,9 @@ public final class APIUtils {
 		 * 请求URL资源。
 		 * @param parameters
 		 * 参数集合。
-		 * @return
-		 * 返回对象。
+		 * @return 返回对象。
 		 */
-		public JSONCallback<T> sendGETRequest(final Resources resources, final  int resUrl, final  Map<String, Object> parameters){
+		public JSONCallback<T> sendGETRequest(final Resources resources, final int resUrl, final Map<String, Object> parameters){
 			return this.convert(sendGET(resources, resUrl, parameters));
 		}
 	}
@@ -329,6 +333,7 @@ public final class APIUtils {
 		/**
 		 * 构造函数。
 		 * @param context
+         * 上下文。
 		 */
 		public CallReLoginHandler(Context context){
 			super(context.getMainLooper());

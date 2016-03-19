@@ -56,19 +56,4 @@ public class LoginResult implements Serializable {
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
-	
-	
-	
-//	/**
-//	 * 所属机构ID。
-//	 */
-//	public String agency_id;
-//	/**
-//	 * 随机用户ID。
-//	 */
-//	public String rand_user_id;
-//	/**
-//	 * 真实姓名。
-//	 */
-//	public String real_name;
 }

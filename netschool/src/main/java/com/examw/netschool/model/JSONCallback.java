@@ -18,10 +18,8 @@ public class JSONCallback<T> implements Serializable {
 	/**
 	 * 构造函数。
 	 */
-	public JSONCallback(){
-		
-	}
-	
+	public JSONCallback(){}
+
 	/**
 	 * 构造函数。
 	 * @param success
@@ -73,7 +71,7 @@ public class JSONCallback<T> implements Serializable {
 	}
 	/**
 	 * 设置错误代码。
-	 * @param code 
+	 * @param code
 	 *	  错误代码。
 	 */
 	public void setCode(Integer code) {

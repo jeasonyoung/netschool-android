@@ -9,8 +9,8 @@ import java.io.Serializable;
  */
 public class Exam implements Serializable {
 	private static final long serialVersionUID = 1L;
-	private String id,name,abbr;
-	private Integer orderNo;
+	private String id,name;
+	//private Integer orderNo;
 	/**
 	 * 获取考试ID。
 	 * @return 考试ID。
@@ -41,34 +41,34 @@ public class Exam implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	/**
-	 * 获取考试简称。
-	 * @return 考试简称。
-	 */
-	public String getAbbr() {
-		return abbr;
-	}
-	/**
-	 * 设置考试简称。
-	 * @param abbr 
-	 *	  考试简称。
-	 */
-	public void setAbbr(String abbr) {
-		this.abbr = abbr;
-	}
-	/**
-	 * 获取排序号。
-	 * @return 排序号。
-	 */
-	public Integer getOrderNo() {
-		return orderNo;
-	}
-	/**
-	 * 设置排序号。
-	 * @param orderNo 
-	 *	  排序号。
-	 */
-	public void setOrderNo(Integer orderNo) {
-		this.orderNo = orderNo;
-	}
+//	/**
+//	 * 获取考试简称。
+//	 * @return 考试简称。
+//	 */
+//	public String getAbbr() {
+//		return abbr;
+//	}
+//	/**
+//	 * 设置考试简称。
+//	 * @param abbr
+//	 *	  考试简称。
+//	 */
+//	public void setAbbr(String abbr) {
+//		this.abbr = abbr;
+//	}
+//	/**
+//	 * 获取排序号。
+//	 * @return 排序号。
+//	 */
+//	public Integer getOrderNo() {
+//		return orderNo;
+//	}
+//	/**
+//	 * 设置排序号。
+//	 * @param orderNo
+//	 *	  排序号。
+//	 */
+//	public void setOrderNo(Integer orderNo) {
+//		this.orderNo = orderNo;
+//	}
 }

@@ -1,5 +1,7 @@
 package com.examw.netschool.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 /**
@@ -22,7 +24,7 @@ public class Downing implements Serializable, Comparable<Downing> {
 	/**
 	 * 设置课程资源ID。
 	 * @param lessonId 
-	 *	  课程资源ID。
+	 *课程资源ID。
 	 */
 	public void setLessonId(String lessonId) {
 		this.lessonId = lessonId;
@@ -92,8 +94,8 @@ public class Downing implements Serializable, Comparable<Downing> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Downing obj) {
-		return this.threadId - obj.threadId;
+	public int compareTo(@NonNull Downing obj) {
+        return this.threadId - obj.threadId;
 	}
 	/*
 	 * 重载。

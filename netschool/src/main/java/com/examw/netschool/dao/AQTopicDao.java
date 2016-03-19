@@ -20,15 +20,17 @@ import android.util.Log;
 public class AQTopicDao extends BaseDao {
 	private static final String TAG = "AQTopicDao";
 	private SQLiteDatabase db;
+
 	/**
 	 * 是否存在答疑主题。
 	 * @param id
-	 * @return
+     * 主题ID。
+	 * @return 是否存在。
 	 */
 	public boolean hasTopic(String id){
 		Log.d(TAG, "是否存在答疑主题..." + id);
 		boolean result = false;
-		if(StringUtils.isBlank(id)) return result;
+		if(StringUtils.isBlank(id)) return false;
 		synchronized(dbHelper){
 			try{
 				final String query = "SELECT COUNT(0) FROM tbl_AQTopic WHERE id = ?;";
@@ -47,50 +49,53 @@ public class AQTopicDao extends BaseDao {
 		}
 		return result;
 	}
-	/**
-	 * 获取答疑主题。
-	 * @param id
-	 * @return
-	 */
-	public AQTopic getTopic(String id){
-		Log.d(TAG, "获取答疑主题["+id+"]数据...");
-		AQTopic topic = null;
-		if(StringUtils.isBlank(id)) return topic;
-		synchronized(dbHelper){
-			try{
-				//sql
-				final String query = "SELECT a.id,a.lessonId,b.name,a.title,a.content,a.lastTime from tbl_AQTopic a "
-						+ " INNER JOIN tbl_Lessones b ON b.id = a.lessonId "
-						+ " WHERE a.id = ?"
-						+ " ORDER BY a.lastTime desc ";
-				//
-				db = dbHelper.getReadableDatabase();
-				final Cursor cursor =  db.rawQuery(query, new String[]{ id });
-				if(cursor.moveToFirst()){
-					topic = this.read(cursor);
-				}
-				//
-				cursor.close();
-			}catch(Exception e){
-				Log.e(TAG, "发生异常:" + e.getMessage(), e);
-			}finally{
-				if(db != null) db.close();
-			}
-		}
-		return topic;
-	}
+
+//	/**
+//	 * 获取答疑主题。
+//	 * @param id
+//     * 主题ID。
+//	 * @return 主题数据。
+//	 */
+//	public AQTopic getTopic(String id){
+//		Log.d(TAG, "获取答疑主题["+id+"]数据...");
+//		AQTopic topic = null;
+//		if(StringUtils.isBlank(id)) return topic;
+//		synchronized(dbHelper){
+//			try{
+//				//sql
+//				final String query = "SELECT a.id,a.lessonId,b.name,a.title,a.content,a.lastTime from tbl_AQTopic a "
+//						+ " INNER JOIN tbl_Lessones b ON b.id = a.lessonId "
+//						+ " WHERE a.id = ?"
+//						+ " ORDER BY a.lastTime desc ";
+//				//
+//				db = dbHelper.getReadableDatabase();
+//				final Cursor cursor =  db.rawQuery(query, new String[]{ id });
+//				if(cursor.moveToFirst()){
+//					topic = this.read(cursor);
+//				}
+//				//
+//				cursor.close();
+//			}catch(Exception e){
+//				Log.e(TAG, "发生异常:" + e.getMessage(), e);
+//			}finally{
+//				if(db != null) db.close();
+//			}
+//		}
+//		return topic;
+//	}
+
 	/**
 	 * 加载全部数据。
-	 * @return
+	 * @return 数据列表。
 	 */
 	public List<AQTopic> loadTopics(){
 		Log.d(TAG, "加载全部数据集合....");
-		final List<AQTopic> topics = new ArrayList<AQTopic>();
+		final List<AQTopic> topics = new ArrayList<>();
 		synchronized(dbHelper){
 			try{
 				//sql
 				final String query = "SELECT a.id,a.lessonId,b.name,a.title,a.content,a.lastTime from tbl_AQTopic a "
-						+ " INNER JOIN tbl_Lessones b ON b.id = a.lessonId "
+						+ " LEFT OUTER JOIN tbl_Lessones b ON b.id = a.lessonId "
 						+ " ORDER BY a.lastTime desc ";
 				//
 				db = dbHelper.getReadableDatabase();
@@ -111,6 +116,7 @@ public class AQTopicDao extends BaseDao {
 		}
 		return topics;
 	}
+
 	//读取数据
 	private AQTopic read(final Cursor cursor){
 		//初始化
@@ -129,9 +135,10 @@ public class AQTopicDao extends BaseDao {
 		topic.setLastTime(cursor.getString(5));
 		return topic;
 	}
+
 	/**
 	 * 插入答疑主题数据。
-	 * @param topics
+	 * @param topic
 	 * 主题数据。
 	 */
 	public void insert(AQTopic topic){
@@ -172,6 +179,7 @@ public class AQTopicDao extends BaseDao {
 			}
 		}
 	}
+
 	/**
 	 * 更新答疑主题。
 	 * @param topic
@@ -213,37 +221,38 @@ public class AQTopicDao extends BaseDao {
 			}
 		}
 	}
-	/**
-	 * 删除答疑数据。
-	 * @param topicId
-	 * 主题ID。
-	 */
-	public void delete(String topicId){
-		Log.d(TAG, "删除答疑数据..." + topicId);
-		if(StringUtils.isBlank(topicId)) return;
-		synchronized(dbHelper){
-			try{
-				//初始化
-				db = dbHelper.getWritableDatabase();
-				//开启事务
-				db.beginTransaction();
-				//执行操作
-				//删除明细
-				db.execSQL("DELETE FROM  tbl_AQDetail  WHERE topicId = ?;", new Object[]{ topicId });
-				//删除主题
-				db.execSQL("DELETE FROM  tbl_AQTopic  WHERE id = ?;", new Object[]{topicId });
-				//设置事务成功
-				db.setTransactionSuccessful();
-			}catch(Exception e){
-				Log.e(TAG, "插入数据异常:" + e.getMessage(), e);
-			}finally{
-				if(db != null){
-					//结束事务
-					db.endTransaction();
-					//关闭连接
-					db.close();
-				}
-			}
-		}
-	}
+
+//	/**
+//	 * 删除答疑数据。
+//	 * @param topicId
+//	 * 主题ID。
+//	 */
+//	public void delete(String topicId){
+//		Log.d(TAG, "删除答疑数据..." + topicId);
+//		if(StringUtils.isBlank(topicId)) return;
+//		synchronized(dbHelper){
+//			try{
+//				//初始化
+//				db = dbHelper.getWritableDatabase();
+//				//开启事务
+//				db.beginTransaction();
+//				//执行操作
+//				//删除明细
+//				db.execSQL("DELETE FROM  tbl_AQDetail  WHERE topicId = ?;", new Object[]{ topicId });
+//				//删除主题
+//				db.execSQL("DELETE FROM  tbl_AQTopic  WHERE id = ?;", new Object[]{topicId });
+//				//设置事务成功
+//				db.setTransactionSuccessful();
+//			}catch(Exception e){
+//				Log.e(TAG, "插入数据异常:" + e.getMessage(), e);
+//			}finally{
+//				if(db != null){
+//					//结束事务
+//					db.endTransaction();
+//					//关闭连接
+//					db.close();
+//				}
+//			}
+//		}
+//	}
 }

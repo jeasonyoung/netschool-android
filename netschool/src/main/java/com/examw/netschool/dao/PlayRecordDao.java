@@ -21,40 +21,41 @@ import android.util.Log;
 public class PlayRecordDao extends BaseDao {
 	private static final String TAG = "PlayRecordDao";
 	private SQLiteDatabase db;
+//	/**
+//	 * 删除播放记录。
+//	 * @param recordId
+//	 */
+//	public void delete(String [] recordIds){
+//		Log.d(TAG, "删除播放记录...");
+//		if(recordIds == null || recordIds.length == 0) return;
+//		synchronized(dbHelper){
+//			try {
+//				final String delSql = "DELETE FROM  tbl_PlayRecords WHERE id in ('"+ StringUtils.join(recordIds, "','") +"') ";
+//				Log.d(TAG, "delete-sql:" + delSql);
+//				//初始化
+//				db = dbHelper.getWritableDatabase();
+//				//开启事务
+//				db.beginTransaction();
+//				//删除数据
+//				db.execSQL(delSql);
+//				//设置事务成功
+//				db.setTransactionSuccessful();
+//			}catch (Exception e) {
+//				Log.e(TAG, "删除播放记录异常:" + e.getMessage(), e);
+//			}finally{
+//				if(db != null){
+//					//结束事务
+//					db.endTransaction();
+//					//关闭连接
+//					db.close();
+//				}
+//			}
+//		}
+//	}
 	/**
 	 * 删除播放记录。
 	 * @param recordId
-	 */
-	public void delete(String [] recordIds){
-		Log.d(TAG, "删除播放记录...");
-		if(recordIds == null || recordIds.length == 0) return;
-		synchronized(dbHelper){
-			try {
-				final String delSql = "DELETE FROM  tbl_PlayRecords WHERE id in ('"+ StringUtils.join(recordIds, "','") +"') ";
-				Log.d(TAG, "delete-sql:" + delSql);
-				//初始化
-				db = dbHelper.getWritableDatabase();
-				//开启事务
-				db.beginTransaction();
-				//删除数据
-				db.execSQL(delSql);
-				//设置事务成功
-				db.setTransactionSuccessful();
-			}catch (Exception e) {
-				Log.e(TAG, "删除播放记录异常:" + e.getMessage(), e);
-			}finally{
-				if(db != null){
-					//结束事务
-					db.endTransaction();
-					//关闭连接
-					db.close();
-				}
-			}
-		}
-	}
-	/**
-	 * 删除播放记录。
-	 * @param recordId
+	 * 记录ID。
 	 */
 	public void delete(String recordId){
 		Log.d(TAG, "删除播放记录...");
@@ -83,43 +84,44 @@ public class PlayRecordDao extends BaseDao {
 			}
 		}
 	}
-	/**
-	 * 删除课程资源下播放记录。
-	 * @param lessonId
-	 */
-	public void deleteByLesson(String lessonId){
-		Log.d(TAG, "删除课程资源["+lessonId+"]下播放记录...");
-		if(StringUtils.isBlank(lessonId)) return;
-		synchronized(dbHelper){
-			try {
-				//初始化
-				db = dbHelper.getWritableDatabase();
-				//开启事务
-				db.beginTransaction();
-				//删除数据
-				db.execSQL("DELETE FROM  tbl_PlayRecords WHERE lesson_id = ? ", new Object[]{ lessonId });
-				//设置事务成功
-				db.setTransactionSuccessful();
-			}catch (Exception e) {
-				Log.e(TAG, "删除课程资源["+lessonId+"]下播放记录异常:" + e.getMessage(), e);
-			}finally{
-				if(db != null){
-					//结束事务
-					db.endTransaction();
-					//关闭连接
-					db.close();
-				}
-			}
-		}
-	}
+//	/**
+//	 * 删除课程资源下播放记录。
+//	 * @param lessonId
+//	 */
+//	public void deleteByLesson(String lessonId){
+//		Log.d(TAG, "删除课程资源["+lessonId+"]下播放记录...");
+//		if(StringUtils.isBlank(lessonId)) return;
+//		synchronized(dbHelper){
+//			try {
+//				//初始化
+//				db = dbHelper.getWritableDatabase();
+//				//开启事务
+//				db.beginTransaction();
+//				//删除数据
+//				db.execSQL("DELETE FROM  tbl_PlayRecords WHERE lesson_id = ? ", new Object[]{ lessonId });
+//				//设置事务成功
+//				db.setTransactionSuccessful();
+//			}catch (Exception e) {
+//				Log.e(TAG, "删除课程资源["+lessonId+"]下播放记录异常:" + e.getMessage(), e);
+//			}finally{
+//				if(db != null){
+//					//结束事务
+//					db.endTransaction();
+//					//关闭连接
+//					db.close();
+//				}
+//			}
+//		}
+//	}
 	/**
 	 * 新增播放记录。
-	 * @param data
+	 * @param lessonId
+     * 播放记录ID。
 	 */
 	public String add(String lessonId){
 		Log.d(TAG, "新增播放记录...");
 		String new_record_id = null;
-		if(StringUtils.isBlank(lessonId)) return new_record_id;
+		if(StringUtils.isBlank(lessonId)) return null;
 		synchronized(dbHelper){
 			try {
 				//初始化
@@ -150,7 +152,9 @@ public class PlayRecordDao extends BaseDao {
 	/**
 	 * 更新播放时间。
 	 * @param recordId
+     * 播放ID
 	 * @param playTime
+     * 播放时间
 	 */
 	public void updatePlayTime(String recordId, Integer playTime){
 		Log.d(TAG, "准备更新["+recordId+"]播放时间..." + playTime);
@@ -192,11 +196,11 @@ public class PlayRecordDao extends BaseDao {
 	}
 	/**
 	 * 加载播放记录。
-	 * @return
+	 * @return 播放记录列表。
 	 */
 	public List<PlayRecord> loadPlayRecords(){
 		Log.d(TAG, "加载播放记录...");
-		final List<PlayRecord> records = new ArrayList<PlayRecord>();
+		final List<PlayRecord> records = new ArrayList<>();
 		synchronized(dbHelper){
 			try {
 				final String query = "SELECT a.id,a.lesson_id,b.name,a.playTime,a.createTime From tbl_PlayRecords a "
@@ -238,12 +242,13 @@ public class PlayRecordDao extends BaseDao {
 	/**
 	 * 加载播放记录。
 	 * @param recordId
-	 * @return
+     * 播放记录ID
+	 * @return 播放记录数据。
 	 */
 	public PlayRecord getPlayRecord(String recordId){
 		Log.d(TAG, "加载播放记录..." + recordId);
-		PlayRecord data = null;
-		if(StringUtils.isBlank(recordId)) return data;
+		if(StringUtils.isBlank(recordId)) return null;
+        PlayRecord data = null;
 		synchronized(dbHelper){
 			try{
 				//sql

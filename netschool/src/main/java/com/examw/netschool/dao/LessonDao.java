@@ -18,11 +18,13 @@ import android.util.Log;
  * @since 2015年9月5日
  */
 public class LessonDao extends BaseDao {
-	private static final String TAG = "LessonDao";
+	private static final String TAG = "lessonDao";
 	private SQLiteDatabase db;
+
 	/**
 	 * 删除班级ID下的课程资源数据。
 	 * @param classId
+	 * 班级ID。
 	 */
 	public void deleteByClass(String classId){
 		Log.d(TAG, "删除班级ID["+classId+"]下的课程资源数据...");
@@ -48,10 +50,13 @@ public class LessonDao extends BaseDao {
 			}
 		}
 	}
+
 	/**
 	 * 新增班级ID下的课程资源数据集合。
 	 * @param classId
+     * 班级ID
 	 * @param lessons
+     * 课程数据列表。
 	 */
 	public void add(String classId, Lesson[] lessons){
 		Log.d(TAG, "新增班级ID["+classId+"]下的课程资源数据集合...");
@@ -93,11 +98,12 @@ public class LessonDao extends BaseDao {
 	/**
 	 * 加载班级下的课程资源数据。
 	 * @param classId
-	 * @return
+     * 班级ID。
+	 * @return 课程列表。
 	 */
 	public List<Lesson> loadLessonsByClass(String classId){
 		Log.d(TAG, "加载班级["+classId+"]下的课程资源数据...");
-		final List<Lesson> lessons = new ArrayList<Lesson>();
+		final List<Lesson> lessons = new ArrayList<>();
 		if(StringUtils.isBlank(classId)) return lessons;
 		synchronized(dbHelper){
 			try {
@@ -121,9 +127,9 @@ public class LessonDao extends BaseDao {
 					//课程资源超清视频URL
 					lesson.setSuperVideoUrl(StringUtils.trimToNull(cursor.getString(4)));
 					//考试时长
-					lesson.setTime(Integer.valueOf(cursor.getInt(5)));
+					lesson.setTime(cursor.getInt(5));
 					//排序号
-					lesson.setOrderNo(Integer.valueOf(cursor.getInt(6)));
+					lesson.setOrderNo(cursor.getInt(6));
 					//添加到集合
 					lessons.add(lesson);
 				}
@@ -137,16 +143,17 @@ public class LessonDao extends BaseDao {
 		}
 		return lessons;
 	}
+
 	/**
 	 * 加载课程资源数据。
 	 * @param lessonId
 	 * 课程资源ID。
-	 * @return
+	 * @return 课程资源数据。
 	 */
 	public Lesson getLesson(String lessonId){
 		Log.d(TAG, "加载课程资源["+lessonId+"]....");
-		Lesson lesson = null;
-		if(StringUtils.isBlank(lessonId)) return lesson;
+		if(StringUtils.isBlank(lessonId)) return null;
+        Lesson lesson = null;
 		synchronized(dbHelper){
 			try {
 				//创建sql
@@ -169,9 +176,9 @@ public class LessonDao extends BaseDao {
 					//课程资源超清视频URL
 					lesson.setSuperVideoUrl(StringUtils.trimToNull(cursor.getString(4)));
 					//考试时长
-					lesson.setTime(Integer.valueOf(cursor.getInt(5)));
+					lesson.setTime(cursor.getInt(5));
 					//排序号
-					lesson.setOrderNo(Integer.valueOf(cursor.getInt(6)));
+					lesson.setOrderNo(cursor.getInt(6));
 				}
 				cursor.close();
 			} catch (Exception e) {

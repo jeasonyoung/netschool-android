@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/answer_submit_bg"
-    android:orientation="vertical" >
+    android:orientation="vertical">
     
     <!-- top  -->
     <include layout="@layout/activity_header"/>
@@ -29,7 +29,8 @@
                 android:padding="@dimen/answer_submit_padding"
                 android:background="@drawable/edit_text_bg">
                 
-                <Spinner android:id="@+id/ddl_class"
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/ddl_class"
 	                style="@style/answer_spinner"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content"
@@ -69,7 +70,8 @@
                 android:padding="@dimen/answer_submit_padding"
                 android:background="@drawable/edit_text_bg">
                 
-	            <Spinner android:id="@+id/ddl_lesson"
+	            <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/ddl_lesson"
 	                style="@style/answer_spinner"
 	                android:layout_width="match_parent"
 	                android:layout_height="wrap_content" 

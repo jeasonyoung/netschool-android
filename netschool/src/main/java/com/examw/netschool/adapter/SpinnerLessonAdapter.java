@@ -20,16 +20,19 @@ import android.widget.TextView;
  * @since 2015年9月24日
  */
 public class SpinnerLessonAdapter extends BaseAdapter {
-	private static final String TAG = "SpinnerLessonAdapter";
+	private static final String TAG = "spinnerLessonAdapter";
 	private final List<Lesson> list;
+
 	/**
 	 * 构造函数。
 	 * @param lessons
+     * 数据列表。
 	 */
 	public SpinnerLessonAdapter(List<Lesson> lessons){
 		Log.d(TAG, "初始化...");
 		this.list = lessons;
 	}
+
 	/*
 	 * 获取数据总数。
 	 * @see android.widget.Adapter#getCount()
@@ -38,6 +41,7 @@ public class SpinnerLessonAdapter extends BaseAdapter {
 	public int getCount() {
 		return (this.list == null) ? 0 : this.list.size();
 	}
+
 	/*
 	 * 获取数据对象。
 	 * @see android.widget.Adapter#getItem(int)
@@ -46,6 +50,7 @@ public class SpinnerLessonAdapter extends BaseAdapter {
 	public Object getItem(int position) {
 		return (this.list == null || this.list.size() < position) ? null : this.list.get(position);
 	}
+
 	/*
 	 * 获取数据ID。
 	 * @see android.widget.Adapter#getItemId(int)
@@ -54,6 +59,7 @@ public class SpinnerLessonAdapter extends BaseAdapter {
 	public long getItemId(int position) {
 		return position;
 	}
+
 	/*
 	 * 获取数据项View。
 	 * @see android.widget.Adapter#getView(int, android.view.View, android.view.ViewGroup)
@@ -61,7 +67,7 @@ public class SpinnerLessonAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		Log.d(TAG, "获取数据项View..." + position);
-		ViewHolder viewHolder = null;
+		ViewHolder viewHolder;
 		if(convertView == null){
 			Log.d(TAG, "新建数据项..." + position);
 			//加载数据项布局

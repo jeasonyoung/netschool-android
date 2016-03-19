@@ -1,5 +1,7 @@
 package com.examw.netschool.model;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
 import org.apache.commons.lang3.StringUtils;
@@ -137,7 +139,7 @@ public class Lesson implements Serializable,Comparable<Lesson> {
 	 * @see java.lang.Comparable#compareTo(java.lang.Object)
 	 */
 	@Override
-	public int compareTo(Lesson o) {
+	public int compareTo(@NonNull Lesson o) {
 		return this.orderNo - o.orderNo;
 	}
 	/*

@@ -3,10 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="2"
     android:versionName="1.1"
-    android:installLocation="auto" 
+    android:installLocation="auto"
     package="com.examw.netschool">
-
-    <uses-sdk android:minSdkVersion="9"  android:targetSdkVersion="23"/>
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
@@ -16,85 +14,89 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application android:name=".app.AppContext"
-        android:allowBackup="true"
-        android:icon="@drawable/app_logo"
+        android:allowBackup="false"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme"
-        tools:replace="android:icon,android:label,android:theme">
+        android:icon="@drawable/app_logo"
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        tools:replace="android:icon,android:theme">
         
         <!-- 启动Activity -->
-        <activity android:name=".ch.StartActivity"
+        <activity android:name=".StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
+                <data android:scheme="http"
+                    android:host="@string/app_host"/>
             </intent-filter>
         </activity>
         
         <!-- 引导页Activity -->
-        <activity android:name=".ch.GuideActivity"
+        <activity android:name=".GuideActivity"
             android:screenOrientation="portrait"/>
         
         <!-- 学员登录Activity -->
-        <activity android:name=".ch.LoginActivity"
+        <activity android:name=".LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
         
         <!-- 主界面Activity -->
-        <activity android:name=".ch.MainActivity"
+        <activity android:name=".MainActivity"
             android:screenOrientation="portrait"/>
         
         <!-- 我的课程Activity -->
-        <activity android:name=".ch.MyCourseActivity"
+        <activity android:name=".MyCourseActivity"
             android:screenOrientation="portrait"/>
         
         <!-- 我的课程资源Activity -->
-        <activity android:name=".ch.MyCourseLessonActivity"
+        <activity android:name=".MyCourseLessonActivity"
             android:screenOrientation="portrait"/>
          
-        <!-- 播放Activity-->
-        <activity android:name=".ch.VideoPlayActivity"
+        <!-- 播放Activity Theme.NoTitleBar.Fullscreen-->
+        <activity android:name=".VideoPlayActivity"
              android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+             android:theme="@style/Theme.AppCompat.NoActionBar"
              android:screenOrientation="landscape"/>
          
         <!-- 下载Activity -->
-        <activity android:name=".ch.DownloadActivity"
+        <activity android:name=".DownloadActivity"
             android:screenOrientation="portrait"/>
          
         <!-- 免费体验Activity -->
-        <activity android:name=".ch.FreeExperienceActivity"
+        <activity android:name=".FreeExperienceActivity"
             android:screenOrientation="portrait"/>
          
         <!-- 答疑主题Activity -->
-        <activity android:name=".ch.AnswerActivity"
+        <activity android:name=".AnswerActivity"
             android:screenOrientation="portrait"/>
 
         <!-- 答疑明细Activity -->
-        <activity android:name=".ch.AnswerDetailActivity"
+        <activity android:name=".AnswerDetailActivity"
             android:screenOrientation="portrait"/>
+
         <!-- 答疑提交Activity -->
-        <activity android:name=".ch.AnswerSubmitActivity"
+        <activity android:name=".AnswerSubmitActivity"
             android:screenOrientation="portrait"/>
         
         <!-- 播放记录 -->
-        <activity android:name=".ch.PlayRecordActivity"
+        <activity android:name=".PlayRecordActivity"
             android:screenOrientation="portrait"/>
          
         <!-- 意见反馈 -->
-        <activity android:name=".ch.SuggestActivity"
+        <activity android:name=".SuggestActivity"
             android:screenOrientation="portrait"/>
          
         <!-- vitamio初始化 -->
         <activity android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
-            android:theme="@android:style/Theme.NoTitleBar"
-           	android:windowSoftInputMode="stateAlwaysHidden"/>
-
-        <!-- 下载服务 -->
-        <!--<service android:name=".service.DownloadService"/>-->
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+           	android:windowSoftInputMode="stateAlwaysHidden"
+            tools:replace="android:theme"/>
 
         <!-- 分发渠道 -->
         <meta-data android:name="channel" android:value="360"/>

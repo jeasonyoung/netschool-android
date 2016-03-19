@@ -49,6 +49,7 @@ public class MyCourseDao extends BaseDao {
 	/**
 	 * 新增课程。
 	 * @param courses
+	 * 数据列表。
 	 */
 	public void add(PackageClass [] courses){
 		Log.d(TAG, " 新增课程..." + courses.length);
@@ -83,13 +84,16 @@ public class MyCourseDao extends BaseDao {
 			}
 		}
 	}
-	/**
-	 * 加载全部课程数据集合。
-	 * @return
-	 */
+
+    /**
+     * 加载全部课程数据集合。
+     * @param pid
+     * 上级ID。
+     * @return 数据列表。
+     */
 	public List<PackageClass> loadCourses(String pid){
 		Log.d(TAG, "加载全部课程数据集合...");
-		final List<PackageClass> courses = new ArrayList<PackageClass>();
+		final List<PackageClass> courses = new ArrayList<>();
 		synchronized(dbHelper){
 			try {
 				//初始化
@@ -109,7 +113,7 @@ public class MyCourseDao extends BaseDao {
 					//类型
 					course.setType(cursor.getString(3));
 					//排序
-					course.setOrderNo(Integer.valueOf(cursor.getInt(4)));
+					course.setOrderNo(cursor.getInt(4));
 					//添加到集合
 					courses.add(course);
 				}
@@ -125,11 +129,11 @@ public class MyCourseDao extends BaseDao {
 	}
 	/**
 	 * 加载班级数据。
-	 * @return
+	 * @return 数据列表。
 	 */
 	public List<PackageClass> loadCoursesByClass(){
 		Log.d(TAG, "加载全部的班级数据...");
-		final List<PackageClass> courses = new ArrayList<PackageClass>();
+		final List<PackageClass> courses = new ArrayList<>();
 		synchronized(dbHelper){
 			try {
 				//初始化
