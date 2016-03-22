@@ -13,23 +13,20 @@
 
     <application android:name=".app.AppContext"
         android:allowBackup="false"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:icon="@drawable/app_logo"
-        android:theme="@style/Theme.AppCompat.NoActionBar"
-        tools:replace="android:icon,android:theme">
+        android:theme="@style/Theme.AppCompat.NoActionBar">
         
         <!-- 启动Activity -->
         <activity android:name=".StartActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
-                <action android:name="android.intent.action.VIEW"/>
                 <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.DEFAULT"/>
-                <category android:name="android.intent.category.BROWSABLE"/>
+                <!--<action android:name="android.intent.action.VIEW"/>-->
                 <category android:name="android.intent.category.LAUNCHER"/>
-                <data android:scheme="http"
-                    android:host="@string/app_host"/>
+                <!--<category android:name="android.intent.category.BROWSABLE"/>-->
+                <!--<data android:scheme="http" android:host="@string/app_host"/>-->
             </intent-filter>
         </activity>
         
