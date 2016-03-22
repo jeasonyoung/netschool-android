@@ -3,6 +3,7 @@ package com.examw.netschool.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.media.AudioManager;
@@ -25,7 +26,7 @@ public class AppContext extends Application {
 	//全局上下文	
 	private static Context mContext;
 	//当前用户ID
-	private static String currentyAgencyId,currentUserId,currentUsername;
+	private static String currentAgencyId,currentUserId,currentUsername;
 	//连接管理
 	private ConnectivityManager connectivityManager;
 	//音频管理
@@ -99,8 +100,11 @@ public class AppContext extends Application {
 	 *  获取当前机构ID。
 	 * @return 机构ID。
 	 */
-	public static String getCurrentyAgencyId(){
-		return currentyAgencyId;
+	public static String getCurrentAgencyId(){
+        if(StringUtils.isBlank(currentAgencyId)){
+            loadUserSharedPreferences();
+        }
+		return currentAgencyId;
 	}
 
     /**
@@ -108,6 +112,9 @@ public class AppContext extends Application {
 	 * @return 当前用户ID。
 	 */
 	public static String getCurrentUserId() {
+        if(StringUtils.isBlank(currentUserId)){
+            loadUserSharedPreferences();
+        }
 		return currentUserId;
 	}
 
@@ -116,8 +123,24 @@ public class AppContext extends Application {
 	 * @return 用户名。
 	 */
 	public static String getCurrentUsername(){
+        if(StringUtils.isBlank(currentUsername)){
+            loadUserSharedPreferences();
+        }
 		return currentUsername;
 	}
+
+    //加载本地存储的用户信息
+	private static synchronized void loadUserSharedPreferences(){
+        if(getContext() == null)return;
+        final SharedPreferences preferences = getContext().getSharedPreferences(
+                Constant.PREFERENCES_CONFIG_USER,
+                Context.MODE_PRIVATE);
+        if(preferences != null){
+            currentAgencyId = preferences.getString("current_agency_id",null);
+            currentUserId = preferences.getString("current_user_id",null);
+            currentUsername = preferences.getString("current_user_name",null);
+        }
+    }
 
     /**
 	 * 设置当前用户信息。
@@ -128,14 +151,36 @@ public class AppContext extends Application {
 	 * @param userName
 	 * 用户名。
 	 */
-	public synchronized static void setCurrentUserInfo(String agencyId, String userId, String userName) {
+	public synchronized static void setCurrentUserInfo(final String agencyId,final String userId,final String userName) {
 		Log.d(TAG, "设置当前用户信息:" + StringUtils.join(new String[]{agencyId, userId, userName}, "#"));
 		//设置当前机构ID
-		currentyAgencyId = agencyId;
+		currentAgencyId = agencyId;
 		//设置当前用户ID
 		currentUserId = userId;
 		//设置当前用户名
 		currentUsername = userName;
+
+        pools_fixed.execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(getContext() == null)return;
+                    //存储到本地
+                    final SharedPreferences preferences = getContext().getSharedPreferences(
+                            Constant.PREFERENCES_CONFIG_USER,
+                            Context.MODE_PRIVATE);
+                    if(preferences != null){
+                        preferences.edit()
+                                .putString("current_agency_id",agencyId)
+                                .putString("current_user_id",userId)
+                                .putString("current_user_name", userName)
+                                .apply();
+                    }
+                }catch (Exception e){
+                    Log.e(TAG, "run: 存储当前用户信息异常=>" + e, e);
+                }
+            }
+        });
 	}
 
 	/**

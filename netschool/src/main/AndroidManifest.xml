@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:versionCode="2"
-    android:versionName="1.1"
     android:installLocation="auto"
     package="com.examw.netschool">
 
@@ -55,12 +53,18 @@
         <!-- 我的课程资源Activity -->
         <activity android:name=".MyCourseLessonActivity"
             android:screenOrientation="portrait"/>
-         
-        <!-- 播放Activity Theme.NoTitleBar.Fullscreen-->
-        <activity android:name=".VideoPlayActivity"
-             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
-             android:theme="@style/Theme.AppCompat.NoActionBar"
-             android:screenOrientation="landscape"/>
+
+        <!-- vitamio 主播放器(优先) -->
+        <activity android:name=".PrimaryPlayActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="landscape"/>
+
+        <!-- android原生播放器(第二播放器)-->
+        <activity android:name=".NativePlayActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="landscape"/>
          
         <!-- 下载Activity -->
         <activity android:name=".DownloadActivity"

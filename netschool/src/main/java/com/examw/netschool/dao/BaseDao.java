@@ -25,7 +25,7 @@ public abstract class BaseDao {
 			throw new RuntimeException("上下文不存在!");
 		}
 		this.dbHelper = new MyDBHelper(context,
-				AppContext.getCurrentyAgencyId(),
+				AppContext.getCurrentAgencyId(),
                 AppContext.getCurrentUsername());
 	}
 }

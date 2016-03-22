@@ -1,13 +1,5 @@
 package com.examw.netschool;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
-
-import com.examw.netschool.app.Constant;
-import com.examw.netschool.util.DownloadFactory;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +17,14 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.examw.netschool.app.Constant;
+import com.examw.netschool.util.DownloadFactory;
+
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 下载完成Fragment。
@@ -328,7 +328,7 @@ public class DownloadByFragmentFinish extends Fragment {
 			Log.d(TAG, "播放按钮事件处理..." + v);
 			if(StringUtils.isBlank(this.lessonId)) return;
 			//
-			final Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+			final Intent intent = new Intent(getActivity(), NativePlayActivity.class);
 			intent.putExtra(Constant.CONST_LESSON_ID, this.lessonId);
 			getActivity().startActivity(intent);
 		}

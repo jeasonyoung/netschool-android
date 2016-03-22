@@ -16,6 +16,8 @@ public final class Utils {
 	 * @return 时间值。
 	 */
 	public static String getTime(long time) {
-		return StringUtils.leftPad(String.valueOf(time / 60), 2, '0') + ":" + StringUtils.leftPad(String.valueOf(time % 60), 2, '0'); 
+		return StringUtils.leftPad(String.valueOf(time / 60), 2, '0')
+				+ ":"
+                + StringUtils.leftPad(String.valueOf(time % 60), 2, '0');
 	}
 }

@@ -355,7 +355,7 @@ public class MyCourseLessonActivity extends BaseActivity {
 			switch(v.getId()){
 				case R.id.txt_lesson:{//点击课程资源名称->播放
 					Log.d(TAG, "播放处理...");
-					intent = new Intent(MyCourseLessonActivity.this, VideoPlayActivity.class);
+					intent = new Intent(MyCourseLessonActivity.this, NativePlayActivity.class);
 					break;
 				}
 				case R.id.btn_download:{//下载

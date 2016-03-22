@@ -114,7 +114,7 @@ public class PlayRecordActivity extends BaseActivity implements OnClickListener,
 			final PlayRecord record = this.playRecords.get(position);
 			if(record != null && StringUtils.isNotBlank(record.getId())){
 				//播放处理
-				final Intent intent = new Intent(this, VideoPlayActivity.class);
+				final Intent intent = new Intent(this, NativePlayActivity.class);
 				intent.putExtra(Constant.CONST_LESSON_RECORD_ID, record.getId());
 				//
 				startActivity(intent);

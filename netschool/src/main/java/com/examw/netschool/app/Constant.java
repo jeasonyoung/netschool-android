@@ -33,6 +33,11 @@ public final class Constant {
 	 * 导航文件配置-是否是第一次。
 	 */
 	public static final String PREFERENCES_CONFIG_GUIDEFILE_ISFIRST = "isfirst_";
+
+    /**
+     * 用户存储配置。
+     */
+    public static final String PREFERENCES_CONFIG_USER = "user";
 	
 	/**
 	 * 用户密码存储配置。

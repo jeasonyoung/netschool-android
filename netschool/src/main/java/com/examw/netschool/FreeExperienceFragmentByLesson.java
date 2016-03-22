@@ -123,7 +123,7 @@ public class FreeExperienceFragmentByLesson extends Fragment implements OnItemCl
 			final Lesson data = this.lessons.get(position);
 			if(data != null && StringUtils.isNotBlank(data.getId()) && StringUtils.isNotBlank(data.getPriorityUrl())){
 				//播放处理
-				final Intent intent = new Intent(getActivity(), VideoPlayActivity.class);
+				final Intent intent = new Intent(getActivity(), NativePlayActivity.class);
 				intent.putExtra(Constant.CONST_LESSON_ID, data.getId());
 				intent.putExtra(Constant.CONST_LESSON_NAME, data.getName());
 				intent.putExtra(Constant.CONST_LESSON_PLAY_URL, data.getPriorityUrl());
