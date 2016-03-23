@@ -11,26 +11,4 @@
     <string name="api_secretkey">uR2bN5z0mX8mhf9JO</string>
     <!-- 0.API URL根路径 -->
     <string name="api_url_root">http://www.52huike.com/api.php</string>
-    <!-- 1.用户登录 -->
-    <string name="api_user_login_url">/api/m/login</string>
-    <!-- 2. 我的课程(套餐/班级集合)-->
-    <string name="api_courses_url">/api/m/courses</string>
-    <!-- 3.课程资源集合 -->
-    <string name="api_lessons_url">/api/m/lessons</string>
-    <!-- 4.考试集合 -->
-    <string name="api_exams_url">/api/m/exams</string>
-    <!-- 5.机构考试下套餐/班级集合 -->
-    <string name="api_packages_url">/api/m/packages</string>
-    <!-- 6.上传学习记录 -->
-    <string name="api_learing_url">/api/m/learning</string>
-    <!-- 7.获取答疑主题 -->
-    <string name="api_topics_url">/api/m/aq/topics</string>
-    <!-- 8.新增答疑主题 -->
-    <string name="api_topic_add_url">/api/m/aq/topic/add</string>
-    <!-- 9.获取答疑明细 -->
-    <string name="api_details_url">/api/m/aq/details</string>
-    <!-- 10.新增答疑明细 -->
-    <string name="api_detail_add_url">/api/m/aq/detail/add</string>
-    <!-- 11.新增学员建议 -->
-    <string name="api_suggest_add_url">/api/m/aq/suggest/add</string>
 </resources>
