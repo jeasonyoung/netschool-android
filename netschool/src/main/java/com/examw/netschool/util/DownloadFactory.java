@@ -303,6 +303,7 @@ public final class DownloadFactory {
         Log.d(TAG, "deleteSaveFile: " + config);
         final File file = this.createSaveFile(config);
         if(file != null && file.exists()){
+            //删除文件
             Uri uri = Uri.fromFile(file);
             boolean result = file.delete();
             Log.d(TAG, "deleteSaveFile: 删除文件["+file+"]" + result);
@@ -373,6 +374,10 @@ public final class DownloadFactory {
                     //加载配置内容
                     final DownloadItemConfig config = this.loadConfigContent(file);
                     if(config != null){
+                        //检查是否已下载
+                        final File saveFile = this.createSaveFile(config);
+                        if(saveFile != null && saveFile.exists()) continue;
+                        //添加到下载列表
                         configList.add(config);
                         Log.d(TAG, "loadTempFiles: item=>" + config);
                     }
@@ -434,12 +439,13 @@ public final class DownloadFactory {
      * @param config
      * 配置数据。
      */
-    private void deleteConfigFile(final DownloadItemConfig config){
+    private synchronized void deleteConfigFile(final DownloadItemConfig config){
         Log.d(TAG, "deleteConfigFile:" + config);
         final File cfgFile = this.createConfigFile(config);
         if(cfgFile != null && cfgFile.exists()){
+            //删除配置文件
             Uri uri = Uri.fromFile(cfgFile);
-            boolean result = cfgFile.delete();
+            final boolean result = cfgFile.delete();
             Log.d(TAG, "deleteConfigFile:[" + cfgFile + "]=>" + result);
             this.sendBordCastDelete(uri);
         }
@@ -526,10 +532,18 @@ public final class DownloadFactory {
                     Log.d(TAG, "beginRequest: 下载ID或URL不存在=>"+ cfg);
                     continue;
                 }
+
+                //检查是已下载完成
+                final File saveFile = this.createSaveFile(cfg);
+                if(saveFile != null && saveFile.exists()){
+                    Log.d(TAG, "beginRequest: 已下载＝>" + cfg);
+                    continue;
+                }
+
                 //创建保存配置
-                this.saveConfigFile(cfg);
-                //
                 final DownloadItemData data = new DownloadItemData(cfg);
+                this.saveConfigFile(cfg);
+
                 //下载临时文件
                 final File tempFile = this.createTempFilePath(cfg);
                 if(tempFile != null && tempFile.exists()){//临时文件存在
