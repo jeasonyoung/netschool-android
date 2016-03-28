@@ -352,8 +352,9 @@ public class MyCourseActivity extends BaseActivity {
 				final MyCourseDao courseDao = new MyCourseDao();
 				//加载数据
 				final List<PackageClass> list = courseDao.loadCourses(parent.getId());
-				if(list != null && list.size() > 0){
-					childs = (PackageClass[])list.toArray();
+				final int len;
+				if(list != null && (len = list.size()) > 0){
+					childs = list.toArray(new PackageClass[len]);
 					this.childCourses.put(groupPosition, childs);
 				}
 			}
