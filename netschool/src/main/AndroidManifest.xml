@@ -102,6 +102,9 @@
            	android:windowSoftInputMode="stateAlwaysHidden"
             tools:replace="android:theme"/>
 
+        <!-- 播放器处理 -->
+        <meta-data android:name="video_play_type" android:value="${VIDEO_PLAY_TYPE}"/>
+
         <!-- 分发渠道 -->
         <meta-data android:name="channel" android:value="360"/>
     </application>

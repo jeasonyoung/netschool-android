@@ -21,6 +21,7 @@ import android.widget.TextView;
 import com.examw.netschool.app.Constant;
 import com.examw.netschool.dao.PlayRecordDao;
 import com.examw.netschool.model.PlayRecord;
+import com.examw.netschool.util.VideoPlayUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -114,7 +115,7 @@ public class PlayRecordActivity extends BaseActivity implements OnClickListener,
 			final PlayRecord record = this.playRecords.get(position);
 			if(record != null && StringUtils.isNotBlank(record.getId())){
 				//播放处理
-				final Intent intent = new Intent(this, NativePlayActivity.class);
+				final Intent intent = VideoPlayUtils.createVideoPlayIntent(this);
 				intent.putExtra(Constant.CONST_LESSON_RECORD_ID, record.getId());
 				//
 				startActivity(intent);

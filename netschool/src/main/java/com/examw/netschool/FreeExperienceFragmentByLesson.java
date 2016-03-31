@@ -14,6 +14,7 @@ import com.examw.netschool.FreeExperienceActivity.Search;
 import com.examw.netschool.model.JSONCallback;
 import com.examw.netschool.model.Lesson;
 import com.examw.netschool.util.APIUtils;
+import com.examw.netschool.util.VideoPlayUtils;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -123,7 +124,7 @@ public class FreeExperienceFragmentByLesson extends Fragment implements OnItemCl
 			final Lesson data = this.lessons.get(position);
 			if(data != null && StringUtils.isNotBlank(data.getId()) && StringUtils.isNotBlank(data.getPriorityUrl())){
 				//播放处理
-				final Intent intent = new Intent(getActivity(), NativePlayActivity.class);
+				final Intent intent = VideoPlayUtils.createVideoPlayIntent(getActivity());
 				intent.putExtra(Constant.CONST_LESSON_ID, data.getId());
 				intent.putExtra(Constant.CONST_LESSON_NAME, data.getName());
 				intent.putExtra(Constant.CONST_LESSON_PLAY_URL, data.getPriorityUrl());

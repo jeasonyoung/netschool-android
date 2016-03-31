@@ -8,6 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.examw.netschool"
+        manifestPlaceholders = [VIDEO_PLAY_TYPE:"com.examw.netschool.PrimaryPlayActivity"]
         minSdkVersion 9
         targetSdkVersion 23
     }
@@ -22,13 +23,15 @@ android {
     productFlavors {
         ch {
             applicationIdSuffix ".ch"
-            versionCode 4
-            versionName "1.4"
+            manifestPlaceholders = [VIDEO_PLAY_TYPE:"NativePlayActivity"]
+            versionCode 5
+            versionName "1.5"
         }
         huike {
             applicationIdSuffix ".huike"
-            versionCode 3
-            versionName "1.3"
+            manifestPlaceholders = [VIDEO_PLAY_TYPE:"NativePlayActivity"]
+            versionCode 4
+            versionName "1.4"
         }
     }
 }

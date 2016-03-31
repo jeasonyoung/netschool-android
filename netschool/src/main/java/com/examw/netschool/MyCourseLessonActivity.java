@@ -21,6 +21,7 @@ import com.examw.netschool.model.JSONCallback;
 import com.examw.netschool.model.Lesson;
 import com.examw.netschool.util.APIUtils;
 import com.examw.netschool.util.DownloadFactory;
+import com.examw.netschool.util.VideoPlayUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -355,7 +356,7 @@ public class MyCourseLessonActivity extends BaseActivity {
 			switch(v.getId()){
 				case R.id.txt_lesson:{//点击课程资源名称->播放
 					Log.d(TAG, "播放处理...");
-					intent = new Intent(MyCourseLessonActivity.this, NativePlayActivity.class);
+					intent = VideoPlayUtils.createVideoPlayIntent(MyCourseLessonActivity.this);
 					break;
 				}
 				case R.id.btn_download:{//下载

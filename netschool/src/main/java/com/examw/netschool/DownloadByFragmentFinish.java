@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.examw.netschool.app.Constant;
 import com.examw.netschool.util.DownloadFactory;
+import com.examw.netschool.util.VideoPlayUtils;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -328,7 +329,7 @@ public class DownloadByFragmentFinish extends Fragment {
 			Log.d(TAG, "播放按钮事件处理..." + v);
 			if(StringUtils.isBlank(this.lessonId)) return;
 			//
-			final Intent intent = new Intent(getActivity(), NativePlayActivity.class);
+			final Intent intent = VideoPlayUtils.createVideoPlayIntent(getActivity());
 			intent.putExtra(Constant.CONST_LESSON_ID, this.lessonId);
 			getActivity().startActivity(intent);
 		}
