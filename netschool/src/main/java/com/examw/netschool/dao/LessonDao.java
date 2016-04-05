@@ -63,6 +63,9 @@ public class LessonDao extends BaseDao {
 		if(StringUtils.isBlank(classId) || lessons == null || lessons.length == 0) return;
 		synchronized(dbHelper){
 			try {
+                final String query_sql = "select count(0) from tbl_Lessones where class_id = ? and id = ?";
+                final String insert_sql = "INSERT INTO tbl_Lessones(class_id,id,name,videoUrl,highVideoUrl,superVideoUrl,time,orderNo) values (?,?,?,?,?,?,?,?)";
+                final String update_sql = "update tbl_Lessones set name = ?,videoUrl = ?,highVideoUrl = ?,superVideoUrl = ? ,time = ?,orderNo = ? where class_id = ? and id = ?";
 				//初始化
 				db = dbHelper.getWritableDatabase();
 				//开启事务
@@ -70,16 +73,30 @@ public class LessonDao extends BaseDao {
 				//新增数据
 				for(Lesson lesson : lessons){
 					if(lesson == null || StringUtils.isBlank(lesson.getId())) continue;
-					db.execSQL("INSERT INTO tbl_Lessones(id,class_id,name,videoUrl,highVideoUrl,superVideoUrl,time,orderNo) values (?,?,?,?,?,?,?,?)", new Object[]{
-							StringUtils.trimToEmpty(lesson.getId()), 
-							StringUtils.trimToEmpty(classId), 
-							StringUtils.trimToEmpty(lesson.getName()),
-							StringUtils.trimToEmpty(lesson.getVideoUrl()),
-							StringUtils.trimToEmpty(lesson.getHighVideoUrl()),
-							StringUtils.trimToEmpty(lesson.getSuperVideoUrl()),
-							lesson.getTime(),
-							lesson.getOrderNo()
-					});
+                    final Cursor cursor  = db.rawQuery(query_sql, new String[]{StringUtils.trimToEmpty(classId), StringUtils.trimToEmpty(lesson.getId())});
+                    if(cursor.moveToNext() && cursor.getInt(0) > 0){//update
+                        db.execSQL(update_sql, new Object[]{
+                                StringUtils.trimToEmpty(lesson.getName()),
+                                StringUtils.trimToEmpty(lesson.getVideoUrl()),
+                                StringUtils.trimToEmpty(lesson.getHighVideoUrl()),
+                                StringUtils.trimToEmpty(lesson.getSuperVideoUrl()),
+                                lesson.getTime(),
+                                lesson.getOrderNo(),
+                                StringUtils.trimToEmpty(classId),
+                                StringUtils.trimToEmpty(lesson.getId())
+                        });
+                    }else {//insert
+                        db.execSQL(insert_sql, new Object[]{
+                                StringUtils.trimToEmpty(classId),
+                                StringUtils.trimToEmpty(lesson.getId()),
+                                StringUtils.trimToEmpty(lesson.getName()),
+                                StringUtils.trimToEmpty(lesson.getVideoUrl()),
+                                StringUtils.trimToEmpty(lesson.getHighVideoUrl()),
+                                StringUtils.trimToEmpty(lesson.getSuperVideoUrl()),
+                                lesson.getTime(),
+                                lesson.getOrderNo()
+                        });
+                    }
 				}
 				//设置事务成功
 				db.setTransactionSuccessful();

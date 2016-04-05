@@ -53,7 +53,7 @@ public abstract class PlayActivity extends BaseActivity {
      */
     protected static final int MSG_TYPE_PLAYPROGRESS = 0;
 
-    private String lessonId,recordId,lessonName;
+    private String lessonId,recordId,lessonName,lessonUrl;
     private long pos;
     private PopupWindow topBar,footerBar;
     private SurfaceView playView;
@@ -240,6 +240,10 @@ public abstract class PlayActivity extends BaseActivity {
         if(intent != null){
             //课程ID
             this.lessonId = intent.getStringExtra(Constant.CONST_LESSON_ID);
+            //课程标题
+            this.lessonName = intent.getStringExtra(Constant.CONST_LESSON_NAME);
+            //课程播放url
+            this.lessonUrl = intent.getStringExtra(Constant.CONST_LESSON_PLAY_URL);
             //播放记录ID
             this.recordId = intent.getStringExtra(Constant.CONST_LESSON_RECORD_ID);
         }
@@ -285,6 +289,9 @@ public abstract class PlayActivity extends BaseActivity {
                     final LessonDao lessonDao = new LessonDao();
                     final Lesson lesson = lessonDao.getLesson(lessonId);
                     if(lesson == null){
+                        if(StringUtils.isNotBlank(lessonUrl)){
+                            return Uri.parse(lessonUrl);
+                        }
                         Log.w(TAG, "doInBackground: 课程资源不存在["+lessonId+"]!");
                         return "课程资源不存在!";
                     }

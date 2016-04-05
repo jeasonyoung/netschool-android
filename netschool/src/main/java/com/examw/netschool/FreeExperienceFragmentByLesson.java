@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.examw.netschool.app.AppContext;
 import com.examw.netschool.app.Constant;
 import com.examw.netschool.FreeExperienceActivity.Search;
+import com.examw.netschool.dao.LessonDao;
 import com.examw.netschool.model.JSONCallback;
 import com.examw.netschool.model.Lesson;
 import com.examw.netschool.util.APIUtils;
