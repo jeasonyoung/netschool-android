@@ -9,7 +9,6 @@ import android.view.View;
 import io.vov.vitamio.LibsChecker;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.widget.VideoView;
-
 /**
  * 主视频播放器(vitamio)。
  * Created by jeasonyoung on 16/3/21.

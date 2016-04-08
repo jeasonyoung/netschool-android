@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.examw.netschool"
-        manifestPlaceholders = [VIDEO_PLAY_TYPE:"com.examw.netschool.PrimaryPlayActivity"]
+        manifestPlaceholders = [VIDEO_PLAY_TYPE:"PrimaryPlayActivity"]
         minSdkVersion 9
         targetSdkVersion 23
     }
@@ -23,13 +23,13 @@ android {
     productFlavors {
         ch {
             applicationIdSuffix ".ch"
-            manifestPlaceholders = [VIDEO_PLAY_TYPE:"NativePlayActivity"]
-            versionCode 5
-            versionName "1.5"
+            manifestPlaceholders = [VIDEO_PLAY_TYPE:"PrimaryPlayActivity"]
+            versionCode 6
+            versionName "1.6"
         }
         huike {
             applicationIdSuffix ".huike"
-            manifestPlaceholders = [VIDEO_PLAY_TYPE:"NativePlayActivity"]
+            manifestPlaceholders = [VIDEO_PLAY_TYPE:"PrimaryPlayActivity"]
             versionCode 4
             versionName "1.4"
         }
@@ -37,9 +37,9 @@ android {
 }
 
 dependencies {
+    compile project(':vitamio')
     compile project(':viewflow')
     compile 'com.google.code.gson:gson:2.6.2'
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'com.android.support:appcompat-v7:23.2.1'
-    compile 'com.charonchui.vitamio:vitamio:4.2.2'
 }

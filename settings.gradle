@@ -1,2 +1,2 @@
-include ':viewflow'
+include ':viewflow', ':vitamio'
 include ':netschool'
